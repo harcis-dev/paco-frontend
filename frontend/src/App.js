@@ -2,7 +2,6 @@
 import React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs';
 import Interface from './assets/interface.png'
-import Application from './assets/application.png'
 import Participant from './assets/participant.png'
 import Group from './assets/group.png'
 import Location from './assets/location.png'
@@ -135,7 +134,7 @@ export default function App() {
                 style: {
                   'shape': 'rectangle',
                   'label': 'data(label)',
-                  'background-image': Application,
+                  'background-image': Cluster,
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
