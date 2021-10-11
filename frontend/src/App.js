@@ -67,6 +67,7 @@ export default function App() {
                 style: {
                   'shape': 'round-rectangle',
                   'background-image': Interface,
+                  'background-opacity': 0,
                   'background-color': '#ffffff',
                   'background-width': '100%',
                   "background-height": '100%',
@@ -216,6 +217,7 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
+                  'background-opacity': 0,
                   'background-image': File,
                   'background-color': '#ffffff',
                   'width' : '150px',
@@ -229,6 +231,7 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
+                  'background-opacity': 0,
                   'background-image': Document,
                   'background-color': '#ffffff',
                   'width' : '150px',
@@ -243,6 +246,7 @@ export default function App() {
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'background-image': Cardfile,
+                  'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width' : '150px',
                   'height': '80px'
@@ -310,6 +314,7 @@ export default function App() {
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'background-image': Product,
+                  'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width': '150px',
                   'height': '80px',
@@ -323,6 +328,7 @@ export default function App() {
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'background-image': Objective,
+                  'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width': '150px',
                   'height': '80px'
