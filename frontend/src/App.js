@@ -1,18 +1,17 @@
 
 import React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs';
-import Interface from './assets/interface.png'
-import Participant from './assets/participant.png'
-import Group from './assets/group.png'
-import Location from './assets/location.png'
-import Position from './assets/position.png'
-import File from './assets/file.png'
-import Document from './assets/document.png'
-import Cardfile from './assets/cardfile.png'
-import Cluster from './assets/cluster.png'
-import PersonType from './assets/persontype.png'
-import Product from './assets/product.png'
-import Objective from './assets/objective.png'
+import InterfaceSVG from './assets/interface.svg'
+import CardfileSVG from './assets/cardfile.svg'
+import GroupSVG from './assets/group.svg'
+import LocationSVG from './assets/location.svg'
+import PositionSVG from './assets/position.svg'
+import FileSVG from './assets/file.svg'
+import DocumentSVG from './assets/document.svg'
+import ClusterSVG from './assets/cluster.svg'
+import PersonTypeSVG from './assets/persontype.svg'
+import ProductSVG from './assets/product.svg'
+import ObjectiveSVG from './assets/objective.svg'
 
 export default function App() {
 
@@ -40,6 +39,7 @@ export default function App() {
        { data: { id: 'twentyone', label: 'Objective', type: 'Objective' }, position: { x: 500, y: 120 } },
        { data: { source: 'one', target: 'two', label: 'Edge from Node1 to Node2' } },
        { data: { source: 'two', target: 'three', label: 'Edge from Node2 to Node3' } },
+       { data: { source: 'three', target: 'fourteen', label: 'Edge from Node3 to Node14' } },
     ];
 
     return <CytoscapeComponent 
@@ -66,18 +66,16 @@ export default function App() {
                 selector: 'node[type="interface"]',
                 style: {
                   'shape': 'round-rectangle',
-                  'background-image': Interface,
+                  'background-image': InterfaceSVG,
                   'background-opacity': 0,
                   'background-color': '#ffffff',
-                  'background-width': '100%',
-                  "background-height": '100%',
-                  'background-fit': 'contain',
+                  'background-fit': 'cover',
                   'background-clip' : 'none',
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'width' : '150px',
-                  'height': '80px'
+                  'height': '83px'
                   
                 }
               },
@@ -135,7 +133,8 @@ export default function App() {
                 style: {
                   'shape': 'rectangle',
                   'label': 'data(label)',
-                  'background-image': Cluster,
+                  'background-fit': 'cover',
+                  'background-image': ClusterSVG,
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
@@ -164,7 +163,9 @@ export default function App() {
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Participant,
+                  'background-fit': 'cover',
+                  'background-position-x': '10px',
+                  'background-image': PositionSVG,
                   'background-color': '#f4e682',
                   'width' : '150px',
                   'height': '80px'
@@ -177,7 +178,10 @@ export default function App() {
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Group,
+                  'background-fit': 'cover',
+                  'background-width': '1000',
+                  'background-position-y': '-25px',
+                  'background-image': GroupSVG,
                   'background-color': '#f4e682',
                   'width' : '150px',
                   'height': '80px'
@@ -190,7 +194,9 @@ export default function App() {
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Location,
+                  'background-fit': 'cover',
+                  "background-position-y": '-35px',
+                  'background-image': LocationSVG,
                   'background-color': '#f4e682',
                   'width' : '150px',
                   'height': '80px'
@@ -204,7 +210,9 @@ export default function App() {
                   'border-width': '1px',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Position,
+                  'background-fit': 'cover',
+                  "background-position-y": '-20px',
+                  'background-image': PositionSVG,
                   'background-color': '#f4e682',
                   'width' : '150px',
                   'height': '80px'
@@ -217,11 +225,12 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
+                  'background-fit': 'cover',
                   'background-opacity': 0,
-                  'background-image': File,
+                  'background-image': FileSVG,
                   'background-color': '#ffffff',
                   'width' : '150px',
-                  'height': '80px'
+                  'height': '100px'
                 }
               },
               {
@@ -231,11 +240,12 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
+                  'background-fit': 'cover',
                   'background-opacity': 0,
-                  'background-image': Document,
+                  'background-image': DocumentSVG,
                   'background-color': '#ffffff',
                   'width' : '150px',
-                  'height': '80px'
+                  'height': '120px'
                 }
               },
               {
@@ -245,7 +255,8 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Cardfile,
+                  'background-fit': 'cover',
+                  'background-image': CardfileSVG,
                   'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width' : '150px',
@@ -260,7 +271,8 @@ export default function App() {
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'border-width': '1px',
-                  'background-image': Cluster,
+                  'background-fit': 'cover',
+                  'background-image': ClusterSVG,
                   'background-color': '#f35353',
                   'width' : '150px',
                   'height': '80px'
@@ -300,7 +312,8 @@ export default function App() {
                   'text-halign': 'center',
                   'text-valign': 'center',
                   'border-width': '1px',
-                  'background-image': PersonType,
+                  'background-fit': 'cover',
+                  'background-image': PersonTypeSVG,
                   'background-color': '#f4e682',
                   'width': '150px',
                   'height': '80px'
@@ -313,7 +326,9 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Product,
+                  'background-fit': 'cover',
+                  'background-position-y': '-40px',
+                  'background-image': ProductSVG,
                   'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width': '150px',
@@ -327,11 +342,13 @@ export default function App() {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
-                  'background-image': Objective,
+                  'background-fit': 'cover',
+                  'background-position-y': '-35px',
+                  'background-image': ObjectiveSVG,
                   'background-opacity': 0,
                   'background-color': '#ffffff',
                   'width': '150px',
-                  'height': '80px'
+                  'height': '125px'
                 }
               },
         ] 
