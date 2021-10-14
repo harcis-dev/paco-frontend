@@ -44,7 +44,7 @@ export default function App() {
 
     return <CytoscapeComponent 
     elements={elements}
-    //layout = { {name: 'preset'} }
+    layout = { {name: 'random'} }
     style =  { {width: '1920px', height: '1080px'} }
     stylesheet=
     {
@@ -52,7 +52,7 @@ export default function App() {
             {
                 selector: 'node[type="function"]',
                 style: {
-                  'shape': 'hexagon',
+                  'shape': 'round-rectangle',
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'center',
@@ -82,7 +82,7 @@ export default function App() {
               {
                 selector: 'node[type="event"]',
                 style: {
-                  'shape': 'round-rectangle',
+                  'shape': 'hexagon',
                   'label': 'data(label)',
                   'border-width': '1px',
                   'text-halign': 'center',
