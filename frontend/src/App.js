@@ -2,22 +2,27 @@ import React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs'
 import dagre from 'cytoscape-dagre'
 import cytoscape from 'cytoscape'
-import {epc} from './formats/epc.js'
+//import {epc} from './formats/epc.js'
+import { dfg } from './formats/dfg.js';
 import axios from 'axios'
 
 cytoscape.use( dagre );
 
 export default function App() {
+  //const layout = {name: 'breadthfirst'};
   const layout = {name: 'dagre'};
 
   // Query Graph from the backend
   const [graph, setGraph] = React.useState(0);
   
   // Fetch graph from node backend
-  async function fetchGraph() {
-    await axios.get("/graph", {params: {id: 1}})
+  function fetchGraph() {
+     axios.post("/graph/variants", {variants: []}, {params: {id: 6}},
+     {headers: {"Access-Control-Allow-Origin": "*"}})
     .then((response) => setGraph(response.data) )
   }
+
+  console.log(graph.dfg)
 
   // Use the fetchGraph function
   React.useEffect(() => {
@@ -26,11 +31,11 @@ export default function App() {
     
   return <CytoscapeComponent
   cy={cy =>
-    cy.layout(layout).run() // Apply the dagre layout
+      cy.layout(layout).run() // Apply the dagre layout
   } 
-  elements = {graph.epk} // only take the epk graph to display
-  style =  { {width: '1920px', height: '1080px'} }
-  stylesheet={epc} // The different graph types.
+  elements = {graph.dfg} 
+  style =  { {width: 1920, height: 1080} }
+  stylesheet={dfg} // The different graph types.
   />;
   
 }
