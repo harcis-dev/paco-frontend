@@ -30,6 +30,25 @@ import ConditionalIntermediateCatchingSVG from "./assets/bpmn/events/conditional
 import ConditionalIntermediateBoundaryNonInterruptingSVG from "./assets/bpmn/events/conditional_intermediate_boundary_non_interrupting.svg"
 import LinkIntermediateCatchingSVG from "./assets/bpmn/events/link_intermediate_catching.svg"
 import LinkIntermediateThrowingSVG from "./assets/bpmn/events/link_intermediate_throwing.svg"
+import SignalStartInterruptingSVG from "./assets/bpmn/events/signal_start_interrupting.svg"
+import SignalStartNonInterruptingSVG from "./assets/bpmn/events/signal_start_non_interrupting.svg"
+import SignalIntermediateCatchingSVG from "./assets/bpmn/events/signal_intermediate_catching.svg"
+import SignalIntermediateThrowingSVG from "./assets/bpmn/events/signal_intermediate_throwing.svg"
+import SignalIntermediateBoundaryNonInterruptingSVG from "./assets/bpmn/events/signal_intermediate_boundary_non_interrupting.svg"
+import SignalEndSVG from "./assets/bpmn/events/signal_end.svg"
+import MultipleStartInterruptingSVG from "./assets/bpmn/events/multiple_start_interrupting.svg"
+import MultipleStartNonInterruptingSVG from "./assets/bpmn/events/multiple_start_non_interrupting.svg"
+import MultipleIntermediateCatchingSVG from "./assets/bpmn/events/multiple_intermediate_catching.svg"
+import MultipleIntermediateThrowingSVG from "./assets/bpmn/events/multiple_intermediate_throwing.svg"
+import MultipleIntermediateBoundaryNonInterruptingSVG from "./assets/bpmn/events/multiple_intermediate_boundary_non_interrupting.svg"
+import MultipleEndSVG from "./assets/bpmn/events/multiple_end.svg"
+import ParallelMultipleStartInterruptingSVG from "./assets/bpmn/events/parallel_multiple_start_interrupting.svg"
+import ParallelMultipleStartNonInterruptingSVG from "./assets/bpmn/events/parallel_multiple_start_non_interrupting.svg"
+import ParallelMultipleIntermediateCatchingSVG from "./assets/bpmn/events/parallel_multiple_intermediate_catching.svg"
+import ParallelMultipleIntermediateBoundaryNonInterruptingSVG from "./assets/bpmn/events/parallel_multiple_intermediate_boundary_non_interrupting.svg"
+import CancelIntermediateBoundaryInterruptingSVG from "./assets/bpmn/events/cancel_intermediate_boundary_interrupting.svg"
+import CancelEndSVG from "./assets/bpmn/events/cancel_end.svg"
+import TerminateSVG from "./assets/bpmn/events/terminate.svg"
 
 
 
@@ -484,6 +503,292 @@ export const bpmn = [
       //'label': 'data(label)',
       'background-opacity': 0,
       'background-image': LinkIntermediateThrowingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_start_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalStartInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_start_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalStartNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_intermediate_catching"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_intermediate_throwing"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalIntermediateThrowingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_intermediate_boundary_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_intermediate_boundary_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalIntermediateBoundaryNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="signal_end"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': SignalEndSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_start_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleStartInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_start_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleStartNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_intermediate_catching"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_intermediate_throwing"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleIntermediateThrowingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_intermediate_boundary_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_intermediate_boundary_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleIntermediateBoundaryNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="multiple_end"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': MultipleEndSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="parallel_multiple_start_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': ParallelMultipleStartInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="parallel_multiple_start_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': ParallelMultipleStartNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="parallel_multiple_intermediate_catching"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': ParallelMultipleIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="parallel_multiple_intermediate_boundary_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': ParallelMultipleIntermediateCatchingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="parallel_multiple_intermediate_boundary_non_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': ParallelMultipleIntermediateBoundaryNonInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="cancel_intermediate_boundary_interrupting"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': CancelIntermediateBoundaryInterruptingSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="cancel_end"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': CancelEndSVG,
+      'background-color': '#ffffff',
+      'background-fit': 'cover',
+      'width': '80px',
+      'height': '80px'
+    }
+  },
+  {
+    selector: 'node[type="terminate"]',
+    style: {
+      'shape': 'ellipse',
+      //'label': 'data(label)',
+      'background-opacity': 0,
+      'background-image': TerminateSVG,
       'background-color': '#ffffff',
       'background-fit': 'cover',
       'width': '80px',
