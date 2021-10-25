@@ -13,27 +13,37 @@ export default function App() {
   const layout = {name: 'dagre'};
 
   // Query Graph from the backend
-  const [graph, setGraph] = React.useState(0);
+  const [graph, setGraph] = React.useState({});
   
   // Fetch graph from node backend
-  function fetchGraph() {
-     axios.post("/graph/variants", {variants: []}, {params: {id: 6}},
-     {headers: {"Access-Control-Allow-Origin": "*"}})
-    .then((response) => setGraph(response.data) )
+  async function fetchGraph() {
+     await axios.post("/graph/variants", {variants: ['3']}, {params: {id: 6}},
+     {headers: {"Access-Control-Allow-Origin": "*"}}
+     )
+    .then((response) => {
+      setGraph(response.data.dfg.graph)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    
   }
-
-  console.log(graph.dfg)
+  
+  
 
   // Use the fetchGraph function
   React.useEffect(() => {
     fetchGraph();
   }, [])
+  
+ 
+  //const json = graph
     
   return <CytoscapeComponent
   cy={cy =>
       cy.layout(layout).run() // Apply the dagre layout
   } 
-  elements = {graph.dfg} 
+  elements = {Array.from(graph)} 
   style =  { {width: 1920, height: 1080} }
   stylesheet={dfg} // The different graph types.
   />;
