@@ -4,16 +4,36 @@ import dagre from 'cytoscape-dagre'
 import cytoscape from 'cytoscape'
 //import {epc} from './formats/epc.js'
 import { dfg } from './formats/dfg.js';
+import { diagramXML } from './diagram.js';
 import axios from 'axios'
+import './App.css';
+import ReactBpmn from 'react-bpmn';
+
 
 cytoscape.use( dagre );
 
 export default function App() {
+
+
+  var isBPMN = true;
+  // Functions for BPMN
+    function onShown() {
+      console.log('diagram shown');
+    }
+  
+    function onLoading() {
+      console.log('diagram loading');
+    }
+  
+    function onError(err) {
+      console.log('failed to show diagram');
+    }
+
   //const layout = {name: 'breadthfirst'};
   const layout = {name: 'dagre'};
 
   // Query Graph from the backend
-  const [graph, setGraph] = React.useState({});
+  const [dfgGraph, setDFGGraph] = React.useState({});
   
   // Fetch graph from node backend
   async function fetchGraph() {
@@ -21,7 +41,7 @@ export default function App() {
      {headers: {"Access-Control-Allow-Origin": "*"}}
      )
     .then((response) => {
-      setGraph(response.data.dfg.graph)
+      setDFGGraph(response.data.dfg.graph)
     })
     .catch(err => {
       console.log(err)
@@ -29,26 +49,26 @@ export default function App() {
     
   }
   
-  
 
   // Use the fetchGraph function
   React.useEffect(() => {
     fetchGraph();
   }, [])
   
- 
-  //const json = graph
     
-  return <CytoscapeComponent
-  cy={cy =>
-      cy.layout(layout).run() // Apply the dagre layout
-  } 
-  elements = {Array.from(graph)} 
-  style =  { {width: 1920, height: 1080} }
-  stylesheet={dfg} // The different graph types.
-  />;
-  
+  return isBPMN ? (<ReactBpmn class="diagram-container"
+                  diagramXML={ diagramXML }
+                  onShown={ onShown }
+                  onLoading={ onLoading }
+                  onError={ onError }
+                  />)
+                  : 
+                  <CytoscapeComponent
+                    cy={cy =>
+                    cy.layout(layout).run() // Apply the dagre layout
+                    } 
+                    elements = {Array.from(dfgGraph)} 
+                    style =  { {width: 1920, height: 1080} }
+                    stylesheet={dfg} // The different graph types.
+                    />;
 }
-
-
-
