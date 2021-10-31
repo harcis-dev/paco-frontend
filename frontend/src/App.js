@@ -2,7 +2,7 @@ import React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs'
 import dagre from 'cytoscape-dagre'
 import cytoscape from 'cytoscape'
-//import {epc} from './formats/epc.js'
+import { epc } from './formats/epc.js';
 import { dfg } from './formats/dfg.js';
 import { diagramXML } from './diagram.js';
 import axios from 'axios'
@@ -13,10 +13,21 @@ import ReactBpmn from 'react-bpmn';
 cytoscape.use( dagre );
 
 export default function App() {
+  // Set the layout of the graph
+  const layout = {name: 'dagre'};
 
+  // True if the user wanna see the BPMN graph
+  var isBPMN = false;
 
-  var isBPMN = true;
-  // Functions for BPMN
+  // True if the user wanna see the DFG graph
+  var isDFG = true;
+
+  // Query Graph from the backend
+  const [dfgGraph, setDFGGraph] = React.useState({});
+  const [epcGraph, setEPCGraph] = React.useState({});
+ //const [bpmnGraph, setBPMNGraph] = React.useState({});
+
+  // Status messages for the BPMN graph in the browser console
     function onShown() {
       console.log('diagram shown');
     }
@@ -28,34 +39,33 @@ export default function App() {
     function onError(err) {
       console.log('failed to show diagram');
     }
-
-  //const layout = {name: 'breadthfirst'};
-  const layout = {name: 'dagre'};
-
-  // Query Graph from the backend
-  const [dfgGraph, setDFGGraph] = React.useState({});
   
   // Fetch graph from node backend
   async function fetchGraph() {
-     await axios.post("/graph/variants", {variants: ['3']}, {params: {id: 6}},
+     await axios.post("/graph/variants", {variants: [], sequence: ""}, {params: {id: 12}},
      {headers: {"Access-Control-Allow-Origin": "*"}}
      )
     .then((response) => {
       setDFGGraph(response.data.dfg.graph)
+      setEPCGraph(response.data.epc.graph)
+      //setBPMNGraph(response.data.bpmn.graph)
     })
     .catch(err => {
       console.log(err)
     })
     
   }
-  
 
   // Use the fetchGraph function
   React.useEffect(() => {
     fetchGraph();
   }, [])
   
-    
+  // Choose the right styling and the right graph
+  let style = isDFG ? dfg : epc;
+  let graph = isDFG ? dfgGraph : epcGraph;
+  
+  // Uses bpmn-js if its a bpmn graph otherwise it uses cytoscape
   return isBPMN ? (<ReactBpmn class="diagram-container"
                   diagramXML={ diagramXML }
                   onShown={ onShown }
@@ -63,12 +73,16 @@ export default function App() {
                   onError={ onError }
                   />)
                   : 
-                  <CytoscapeComponent
+                  <CytoscapeComponent 
+                    wheelSensitivity={0.1}
+                    minZoom={0.5}
+                    maxZoom={2}
+                    userZoomingEnabled={true}
                     cy={cy =>
                     cy.layout(layout).run() // Apply the dagre layout
                     } 
-                    elements = {Array.from(dfgGraph)} 
+                    elements = {Array.from(graph)} 
                     style =  { {width: 1920, height: 1080} }
-                    stylesheet={dfg} // The different graph types.
+                    stylesheet={style} // The different graph types.
                     />;
 }
