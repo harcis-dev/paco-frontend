@@ -6,6 +6,7 @@ export const dfg = [
         style: {
             'shape': 'ellipse',
             'label': 'data(label)',
+            'text-wrap': 'wrap',
             'text-halign': 'center',
             'text-valign': 'center',
             'border-width': '1px',
@@ -19,10 +20,18 @@ export const dfg = [
         selector: 'edge[type="DirectedEdge"]',
         style: {
             'width': 1,
+            'font-size' : '16px',
+            'label': 'data(label)',
+            'text-background-opacity': 1,
+            'text-background-colour': '#ffffff',
+            'text-wrap': 'wrap',
+            'text-overflow-wrap': 'anywhere',
+            'text-background-color': 'white',
+            'text-justification': 'auto',
             'line-color': '#000000',
             'target-arrow-shape': 'triangle',
             'target-arrow-color': '#000000',
-            'curve-style': 'bezier'
+            'curve-style': 'unbundled-bezier'
         }
        
     }
