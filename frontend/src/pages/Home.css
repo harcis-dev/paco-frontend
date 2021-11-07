@@ -1,98 +1,23 @@
 .cytoscape {
-    border: 1px solid black;
-    left: 2%;
-    top: 5vh;
-    flex: content;
-    height: 65vh;
-  
-    float: left;
-    display: inline;
-    width: 80%;
-  }
-  
-  .cards {
-    width: 15%;
-    flex: content;
-  
-    float: left;
-    display: inline;
-  }
-  
-  #import {
-    margin-left: 2vh;
-  }
-  
-  #footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 10vh;
-    padding-right: 4vh;
-  }
-  
-  #subheader {
-    height: 10vh;
-    padding-left: 2vh;
-    padding-right: 4vh;
-  }
-  
-  #textNodes {
-    position: relative;
-    margin-bottom: 3vh;
-    right: 1vh;
-    left: 55vh;
-  }
-  
-  #textEdges {
-    position: relative;
-    bottom: 0.25vh;
-    right: 1vh;
-    left: 55vh;
-  }
-  
-  #sliderNodes {
-    top: 2vh;
-    margin-left: 1vh;
-    max-width: 15vh;
-    padding-left: 1vh;
-    position: relative;
-    left: 55vh;
-  }
-  
-  #sliderEdges {
-    margin-top: 1vh;
-    margin-left: 2vh;
-    max-width: 14vh;
-    position: relative;
-    left: 55vh;
-  }
-  
-  #comboBox {
-    width: 10vh;
-    min-width: 12vh;
-    flex: content;
-    display: inline;
-    border-radius: 4px;
-    border: 1px solid #0854a0;
-    color: #0854a0;
-  }
-  
-  .new_line {
-    clear: both;
-  }
-  
-  span {
-    display: block;
-  }
+  border: 1px solid black;
+  left: 2%;
+  top: 5vh;
+  flex: content;
+  height: 65vh;
 
-  .react-bpmn-diagram-container {
-    border: 1px solid black;
-    top: 5vh;
-    flex: content;
-    float: left;
-    height: 65vh;
-    display: inline;
-    width: 80%;
-    margin-left: 2%;
-    margin-top: 5vh;
-  }
+  float: left;
+  display: inline;
+  width: 80%;
+}
+
+.react-bpmn-diagram-container {
+  border: 1px solid black;
+  top: 5vh;
+  flex: content;
+  float: left;
+  height: 65vh;
+  display: inline;
+  width: 80%;
+  margin-left: 2%;
+  margin-top: 5vh;
+}

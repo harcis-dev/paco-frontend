@@ -1,0 +1,17 @@
+.cards {
+  width: 15%;
+  flex: content;
+
+  float: left;
+  display: inline;
+}
+
+#comboBox {
+  width: 10vh;
+  min-width: 12vh;
+  flex: content;
+  display: inline;
+  border-radius: 4px;
+  border: 1px solid #0854a0;
+  color: #0854a0;
+}
