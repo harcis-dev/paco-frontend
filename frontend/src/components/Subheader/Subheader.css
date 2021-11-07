@@ -1,0 +1,30 @@
+#subheader {
+  height: 90px;
+  padding-left: 2vh;
+  padding-right: 4vh;
+  position: relative;
+}
+
+#import {
+  margin-left: 2vh;
+}
+
+#sliders {
+  width: 300px;
+  position: absolute;
+  right: 300px;
+}
+
+#sliders div {
+  width: 150px;
+  height: 50%;
+  max-height: 38px;
+  float: left;
+}
+
+#textEdges,
+#textNodes {
+  position: relative;
+  top: 7px;
+  left: 80px;
+}

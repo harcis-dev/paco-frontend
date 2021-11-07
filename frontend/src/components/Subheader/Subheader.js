@@ -10,10 +10,10 @@ export default class Footer extends Component {
           onClick={() => alert("Hello World!")}
           slot="startContent"
           design="Emphasized"
+          id="fetchData"
         >
           Fetch new model from SAP
         </Button>
-        &nbsp;
         <Button
           id="import"
           onClick={() => alert("Hello World!")}
@@ -21,20 +21,26 @@ export default class Footer extends Component {
         >
           Import model
         </Button>
-        <div class="new_line">
-          <Text id="textNodes" slot="endContent">
-            Nodes
-          </Text>
-          <span></span>
-          <Text id="textEdges" slot="endContent">
-            Edges
-          </Text>
+
+        <div id="sliders">
+          <div id="1">
+            <Text id="textNodes" slot="endContent">
+              Nodes
+            </Text>
+          </div>
+          <div id="2">
+            <ui5-slider id="sliderNodes" slot="endContent"></ui5-slider>
+          </div>
+          <div id="3">
+            <Text id="textEdges" slot="endContent">
+              Edges
+            </Text>
+          </div>
+          <div id="4">
+            <ui5-slider id="sliderEdges" slot="endContent"></ui5-slider>
+          </div>
         </div>
-        <div class="new_line">
-          <ui5-slider id="sliderNodes" slot="endContent"></ui5-slider>
-          <ui5-slider id="sliderEdges" slot="endContent"></ui5-slider>
-        </div>
-        <ui5-combobox id="comboBox" slot="endContent" value="DFG">
+        <ui5-combobox id="combo" slot="endContent" value="DFG">
           <ui5-cb-item text="DFG"></ui5-cb-item>
           <ui5-cb-item text="BPMN"></ui5-cb-item>
           <ui5-cb-item text="EPC"></ui5-cb-item>
