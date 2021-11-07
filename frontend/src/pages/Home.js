@@ -2,11 +2,8 @@ import React from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import "./Home.css";
 import { Button } from "@ui5/webcomponents-react";
-import paco from "./Paco.png";
 import Pfeil from "./Pfeil.png";
 import Nummer from "./Nummer.png";
-import profilePicture from "./profilePictureExample.png";
-import { Avatar, Text, ShellBar, ShellBarItem } from "@ui5/webcomponents-react";
 import dagre from 'cytoscape-dagre'
 import cytoscape from 'cytoscape'
 import { epc } from '../formats/epc.js';
@@ -14,6 +11,8 @@ import { dfg } from '../formats/dfg.js';
 import { diagramXML } from '../diagram.js';
 import axios from 'axios'
 import ReactBpmn from 'react-bpmn';
+import Header from '../components/Header/Header.js';
+import Subheader from '../components/Subheader/Subheader.js'
 
 cytoscape.use( dagre );
 
@@ -72,52 +71,8 @@ function Home() {
   return (
     <>
       <div className="home">
-        <ShellBar
-          logo={<img src={paco} alt="Paco" />}
-          profile={
-            <Avatar>
-              <img src={profilePicture} alt="Profile" />
-            </Avatar>
-          }
-          primaryTitle="Paco"
-        >
-          <ShellBarItem icon="bell" text="Add" />
-        </ShellBar>
-        <ui5-bar design="Subheader" id="subheader">
-          <Button
-            onClick={() => alert("Hello World!")}
-            slot="startContent"
-            design="Emphasized"
-          >
-            Fetch new model from SAP
-          </Button>
-          &nbsp;
-          <Button
-            id="import"
-            onClick={() => alert("Hello World!")}
-            slot="startContent"
-          >
-            Import model
-          </Button>
-          <div class="new_line">
-            <Text id="textNodes" slot="endContent">
-              Nodes
-            </Text>
-            <span></span>
-            <Text id="textEdges" slot="endContent">
-              Edges
-            </Text>
-          </div>
-          <div class="new_line">
-            <ui5-slider id="sliderNodes" slot="endContent"></ui5-slider>
-            <ui5-slider id="sliderEdges" slot="endContent"></ui5-slider>
-          </div>
-          <ui5-combobox id="comboBox" slot="endContent" value="DFG">
-            <ui5-cb-item text="DFG"></ui5-cb-item>
-            <ui5-cb-item text="BPMN"></ui5-cb-item>
-            <ui5-cb-item text="EPC"></ui5-cb-item>
-          </ui5-combobox>
-        </ui5-bar>
+        <Header />
+        <Subheader />
         <div className="cards">
           <ui5-card class="medium">
             <ui5-card-header slot="header" title-text="Proccess Models">
