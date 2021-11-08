@@ -1,12 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import Pfeil from "./Pfeil.png";
 import Nummer from "./Nummer.png";
 import "./Cards.css";
 import { useState } from "react";
 import axios from "axios";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
-import Canvas from "../Canvas/Canvas.js";
-import * as Subheader from "../Subheader/Subheader.js";
 
 export default function Header() {
   const [graphIds, setGraphIds] = useState([]);

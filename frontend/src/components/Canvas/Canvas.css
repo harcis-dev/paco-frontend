@@ -4,7 +4,12 @@
   top: 5vh;
   flex: content;
   height: 65vh;
+
+  float: left;
+  display: inline;
+  width: 80%;
 }
+
 
 .react-bpmn-diagram-container {
   border: 1px solid black;

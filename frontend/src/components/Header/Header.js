@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import paco from "./Paco.png";
 import profilePicture from "./profilePictureExample.png";
 import { Avatar, ShellBar, ShellBarItem } from "@ui5/webcomponents-react";

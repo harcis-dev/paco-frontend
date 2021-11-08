@@ -19,7 +19,6 @@ function Canvas(getGraphFormat) {
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
   //const [epcGraph, setEPCGraph] = React.useState({});
-  // const [format, setFormat] = React.useState("");
   //const [bpmnGraph, setBPMNGraph] = React.useState({});
 
   // Status messages for the BPMN graph in the browser console

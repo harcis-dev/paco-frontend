@@ -1,19 +1,24 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Text, Button, Select } from "@ui5/webcomponents-react";
 import "./Subheader.css";
 
-export default function SubHeader() {
-  const [format, setFormat] = useState("DFG");
+export default function SubHeader({ getFormat }) {
+
+  const [format, setFormat] = useState("DFG")
+
 
   const data = [
     { id: "DFG", text: "DFG" },
     { id: "EPC", text: "EPC" },
     { id: "BPMN", text: "BPMN" },
   ];
+
   const handleFormat = (e) => {
-    setFormat(e.detail.selectedOption.dataset.id);
-    console.log(e.detail.selectedOption.dataset.id);
-  };
+    setFormat(e.detail.selectedOption.dataset.id)
+    console.log(e.detail.selectedOption.dataset.id)
+    getFormat(e.detail.selectedOption.dataset.id)
+  }
+  
   return (
     <ui5-bar design="Subheader" id="subheader">
       <Button
