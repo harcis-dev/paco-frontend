@@ -1,15 +1,13 @@
 .cytoscape {
   border: 1px solid black;
-  left: 2%;
-  top: 5vh;
+  position: absolute;
+  left: 280px;
+  right: 2%;
+  top: 170px;
   flex: content;
-  height: 65vh;
-
-  float: left;
-  display: inline;
-  width: 80%;
+  height: calc(100% - 300px);
+  display: inline-block;
 }
-
 
 .react-bpmn-diagram-container {
   border: 1px solid black;
