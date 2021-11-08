@@ -19,7 +19,7 @@ export const dfg = [
       
         selector: 'edge[type="DirectedEdge"]',
         style: {
-            'width': 1,
+            'width': "data(width)",
             'font-size' : '16px',
             'label': 'data(label)',
             'text-background-opacity': 1,

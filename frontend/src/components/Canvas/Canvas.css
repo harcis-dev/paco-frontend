@@ -1,0 +1,24 @@
+.cytoscape {
+  border: 1px solid black;
+  left: 2%;
+  top: 5vh;
+  flex: content;
+  height: 65vh;
+
+  float: left;
+  display: inline;
+  width: 80%;
+}
+
+
+.react-bpmn-diagram-container {
+  border: 1px solid black;
+  top: 5vh;
+  flex: content;
+  float: left;
+  height: 65vh;
+  display: inline;
+  width: 80%;
+  margin-left: 2%;
+  margin-top: 5vh;
+}
