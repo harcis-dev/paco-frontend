@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
 
-export default function Cards({ getGraph, getVariant }) {
+export default function Cards({ getGraph, getVariant}) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();
@@ -33,7 +33,7 @@ export default function Cards({ getGraph, getVariant }) {
   // Fetch the different graph ids from backend
   async function getGraphIds() {
     await axios
-      .get("/ids")
+      .get("/graph/ids")
       .then((response) => {
         var graphMap = [];
         response.data.forEach(element => {
@@ -58,9 +58,8 @@ export default function Cards({ getGraph, getVariant }) {
     async function getVariants() {
       await axios
         .post(
-          "/graph/variants",
+          "/graph/" + graph,
           { variants: [], sequence: "" },
-          { params: { id: graph } },
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
@@ -94,7 +93,7 @@ export default function Cards({ getGraph, getVariant }) {
               onItemClick={handleGraphItem}
             >
               {graphIds.map((listItem) => (
-                <StandardListItem image={Pfeil} description="42.000 variants" key={listItem.id} data-id={listItem.id}>
+                <StandardListItem image={Pfeil} description="12 Variants" key={listItem.id} data-id={listItem.id}>
                   #{listItem.name}
                 </StandardListItem>
               ))}

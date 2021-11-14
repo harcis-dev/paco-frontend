@@ -43,9 +43,8 @@ function Canvas(props) {
      async function fetchGraph() {
       await axios
         .post(
-          "/graph/variants",
+          "/graph/" + graphId,
           { variants: variantId === undefined ? [] : variantId, sequence: "" },
-          { params: { id: graphId } },
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
@@ -83,11 +82,11 @@ function Canvas(props) {
     <CytoscapeComponent
       className="cytoscape"
       wheelSensitivity={0.1}
-      minZoom={0.5}
       maxZoom={2}
       userZoomingEnabled={true}
       cy={
-        (cy) => cy.layout(layout).run() // Apply the dagre layout
+        (cy) => {cy.layout(layout).run() // Apply the dagre layout
+        cy.fit()}
       }
       elements={Array.from(graph)}
       stylesheet={style} // The different graph types.
