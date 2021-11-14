@@ -1,5 +1,5 @@
 import React from "react";
-import Pfeil from "./Pfeil.png";
+import Arrow from "./arrow.svg";
 import "./Cards.css";
 import { useState } from "react";
 import axios from "axios";
@@ -93,7 +93,7 @@ export default function Cards({ getGraph, getVariant}) {
               onItemClick={handleGraphItem}
             >
               {graphIds.map((listItem) => (
-                <StandardListItem image={Pfeil} description="12 Variants" key={listItem.id} data-id={listItem.id}>
+                <StandardListItem image={Arrow} description="12 Variants" key={listItem.id} data-id={listItem.id}>
                   #{listItem.name}
                 </StandardListItem>
               ))}
