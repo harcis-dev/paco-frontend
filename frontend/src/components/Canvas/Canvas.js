@@ -16,6 +16,7 @@ function Canvas(props) {
 
   const graphFormat = props.getGraphFormat;
   const graphId = props.getGraph;
+  const variantId = props.getVariant;
 
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
@@ -35,30 +36,29 @@ function Canvas(props) {
     console.log("failed to show diagram");
   }
 
-
-
   // Use the fetchGraph function
   React.useEffect(() => {
      // Fetch graph from node backend
-  async function fetchGraph() {
-    await axios
-      .post(
-        "/graph/variants",
-        { variants: [], sequence: "" },
-        { params: { id: graphId } },
-        { headers: { "Access-Control-Allow-Origin": "*" } }
-      )
-      .then((response) => {
-        setDFGGraph(response.data.dfg.graph);
-        //setEPCGraph(response.data.epc.graph)
-        //setBPMNGraph(response.data.bpmn.graph)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+     console.log(variantId + "var")
+     async function fetchGraph() {
+      await axios
+        .post(
+          "/graph/variants",
+          { variants: variantId === undefined ? [] : variantId, sequence: "" },
+          { params: { id: graphId } },
+          { headers: { "Access-Control-Allow-Origin": "*" } }
+        )
+        .then((response) => {
+          setDFGGraph(response.data.dfg.graph);
+          //setEPCGraph(response.data.epc.graph)
+          //setBPMNGraph(response.data.bpmn.graph)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   fetchGraph()
-  }, [graphId]);
+  }, [graphId, variantId]);
 
   // Choose the right styling and the right graph
   let style = "";
