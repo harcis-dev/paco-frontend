@@ -6,22 +6,25 @@ import { useState } from "react";
 import axios from "axios";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
 
-export default function Header() {
+export default function Cards({ getGraph }) {
   const [graphIds, setGraphIds] = useState([]);
-  //const [variants, setVariants] = useState([])
+  //const [variants, setVariants] = useState([]);
 
-  /*
-    const list = [
-      { id: 1, text: '1'},
-      { id: 2, text: '2'},
-      { id: 3, text: '3'}
-    ]*/
+  const handleItemClick = event => {
+    console.log(event.detail.item.dataset.id);
+    getGraph(event.detail.item.dataset.id);
+  }
 
   async function getGraphIds() {
     await axios
       .get("/ids")
       .then((response) => {
-        setGraphIds(response.data);
+        var graphMap = [];
+        response.data.forEach(element => {
+          graphMap.push({id: element, name: element});
+        });
+        console.log(graphMap);
+        setGraphIds(graphMap);
       })
       .catch((err) => {
         console.log(err);
@@ -30,6 +33,7 @@ export default function Header() {
   React.useEffect(() => {
     getGraphIds();
   }, []);
+
 
   return (
     <>
@@ -43,10 +47,11 @@ export default function Header() {
               separators="None"
               class="card-content-child"
               style={{ height: "320px" }}
+              onItemClick={handleItemClick}
             >
               {graphIds.map((listItem) => (
-                <StandardListItem image={Pfeil} description="42.000 variants">
-                  #{listItem}
+                <StandardListItem image={Pfeil} description="42.000 variants" key={listItem.id} data-id={listItem.id}>
+                  #{listItem.name}
                 </StandardListItem>
               ))}
             </List>

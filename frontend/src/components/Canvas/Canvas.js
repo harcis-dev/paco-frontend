@@ -11,10 +11,11 @@ import "./Canvas.css";
 
 cytoscape.use(dagre);
 
-function Canvas(getGraphFormat) {
+function Canvas(props) {
   const layout = { name: "dagre" };
 
-  const graphFormat = getGraphFormat.getGraphFormat;
+  const graphFormat = props.getGraphFormat;
+  const graphId = props.getGraph;
 
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
@@ -34,13 +35,17 @@ function Canvas(getGraphFormat) {
     console.log("failed to show diagram");
   }
 
-  // Fetch graph from node backend
+
+
+  // Use the fetchGraph function
+  React.useEffect(() => {
+     // Fetch graph from node backend
   async function fetchGraph() {
     await axios
       .post(
         "/graph/variants",
         { variants: [], sequence: "" },
-        { params: { id: 11 } },
+        { params: { id: graphId } },
         { headers: { "Access-Control-Allow-Origin": "*" } }
       )
       .then((response) => {
@@ -52,11 +57,8 @@ function Canvas(getGraphFormat) {
         console.log(err);
       });
   }
-
-  // Use the fetchGraph function
-  React.useEffect(() => {
-    fetchGraph();
-  }, []);
+  fetchGraph()
+  }, [graphId]);
 
   // Choose the right styling and the right graph
   let style = "";

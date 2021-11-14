@@ -8,15 +8,15 @@ import Canvas from "../components/Canvas/Canvas";
 
 function Home() {
   const [format, setGraphFormat] = useState('DFG');
-
+  const [graph, setGraph] = useState(11);
 
   return (
     <>
       <div className="home">
         <Header />
         <Subheader getFormat={format => setGraphFormat(format)}/>
-        <Cards />
-        <Canvas getGraphFormat={format}/>
+        <Cards getGraph={graph => setGraph(graph)}/>
+        <Canvas getGraphFormat={format} getGraph={graph}/>
         <Footer />
       </div>
     </>
