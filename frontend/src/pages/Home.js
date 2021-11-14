@@ -21,7 +21,8 @@ function Home() {
         <Canvas getGraphFormat={format} 
                 getGraph={graph} 
                 getVariant={variant}/>
-        <Footer />
+        <Footer getGraph={graph}
+                getVariant={variant}/>
       </div>
     </>
   );
