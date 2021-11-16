@@ -20,44 +20,50 @@ export default function SubHeader({ getFormat }) {
   }
   
   return (
+    <div class="flex-container">
     <ui5-bar design="Subheader" id="subheader">
-      <Button
-        onClick={() => alert("Hello World!")}
-        slot="startContent"
-        design="Emphasized"
-        id="fetchData"
-      >
-        Fetch new model from SAP
-      </Button>
-      <Button
-        id="import"
-        onClick={() => alert("Hello World!")}
-        slot="startContent"
-      >
-        Import model
-      </Button>
+      
+        <div class="btnClass" slot="startContent">
+          <Button
+          onClick={() => alert("Hello World!")}
+          slot="startContent"
+          design="Emphasized"
+          id="fetchData"
+        >
+          Fetch new model from SAP
+        </Button>
+        <Button
+          id="import"
+          onClick={() => alert("Hello World!")}
+          slot="startContent"
+        >
+          Import model
+        </Button>
+        </div>
 
-      <div id="sliders">
-        <div id="1">
-          <Text id="textNodes" slot="endContent">
+      <div id="sliders" class="sliderClass" slot="endContent"> 
+        <table table="tableClass">
+          <tr>
+            <td><Text id="textNodes">
             Nodes
-          </Text>
-        </div>
-        <div id="2">
-          <ui5-slider id="sliderNodes" slot="endContent"></ui5-slider>
-        </div>
-        <div id="3">
-          <Text id="textEdges" slot="endContent">
+            </Text></td>
+            <td><ui5-slider class="sliderNode"></ui5-slider></td>
+          </tr>
+          <tr>
+            <td><Text id="textEdges">
             Edges
-          </Text>
-        </div>
-        <div id="4">
-          <ui5-slider id="sliderEdges" slot="endContent"></ui5-slider>
-        </div>
+          </Text></td>
+            <td><ui5-slider class="sliderEdge"></ui5-slider></td>
+          </tr> 
+        </table>
+        
+        
       </div>
+      
+      <div class="selectClass" slot="endContent">
       <Select
         id="selectFormat"
-        slot="endContent"
+        
         value={format}
         onChange={handleFormat}
       >
@@ -67,6 +73,9 @@ export default function SubHeader({ getFormat }) {
           </option>
         ))}
       </Select>
+      </div>
+      
     </ui5-bar>
+    </div>
   );
 }
