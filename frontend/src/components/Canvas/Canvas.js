@@ -11,10 +11,12 @@ import "./Canvas.css";
 
 cytoscape.use(dagre);
 
-function Canvas(getGraphFormat) {
+function Canvas(props) {
   const layout = { name: "dagre" };
 
-  const graphFormat = getGraphFormat.getGraphFormat;
+  const graphFormat = props.getGraphFormat;
+  const graphId = props.getGraph;
+  const variantId = props.getVariant;
 
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
@@ -34,29 +36,28 @@ function Canvas(getGraphFormat) {
     console.log("failed to show diagram");
   }
 
-  // Fetch graph from node backend
-  async function fetchGraph() {
-    await axios
-      .post(
-        "/graph/variants",
-        { variants: [], sequence: "" },
-        { params: { id: 11 } },
-        { headers: { "Access-Control-Allow-Origin": "*" } }
-      )
-      .then((response) => {
-        setDFGGraph(response.data.dfg.graph);
-        //setEPCGraph(response.data.epc.graph)
-        //setBPMNGraph(response.data.bpmn.graph)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   // Use the fetchGraph function
   React.useEffect(() => {
-    fetchGraph();
-  }, []);
+     // Fetch graph from node backend
+     console.log(variantId + "var")
+     async function fetchGraph() {
+      await axios
+        .post(
+          "/graph/" + graphId,
+          { variants: variantId === undefined ? [] : variantId, sequence: "" },
+          { headers: { "Access-Control-Allow-Origin": "*" } }
+        )
+        .then((response) => {
+          setDFGGraph(response.data.dfg.graph);
+          //setEPCGraph(response.data.epc.graph)
+          //setBPMNGraph(response.data.bpmn.graph)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  fetchGraph()
+  }, [graphId, variantId]);
 
   // Choose the right styling and the right graph
   let style = "";
@@ -81,11 +82,11 @@ function Canvas(getGraphFormat) {
     <CytoscapeComponent
       className="cytoscape"
       wheelSensitivity={0.1}
-      minZoom={0.5}
       maxZoom={2}
       userZoomingEnabled={true}
       cy={
-        (cy) => cy.layout(layout).run() // Apply the dagre layout
+        (cy) => {cy.layout(layout).run() // Apply the dagre layout
+        cy.fit()}
       }
       elements={Array.from(graph)}
       stylesheet={style} // The different graph types.

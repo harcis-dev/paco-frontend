@@ -1,35 +1,82 @@
 import React from "react";
-import Pfeil from "./Pfeil.png";
-import Nummer from "./Nummer.png";
+import Arrow from "./arrow.svg";
 import "./Cards.css";
 import { useState } from "react";
 import axios from "axios";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
 
-export default function Header() {
+export default function Cards({ getGraph, getVariant}) {
   const [graphIds, setGraphIds] = useState([]);
-  //const [variants, setVariants] = useState([])
+  const [variants, setVariants] = useState([]);
+  const [graph, setGraph] = useState();
 
-  /*
-    const list = [
-      { id: 1, text: '1'},
-      { id: 2, text: '2'},
-      { id: 3, text: '3'}
-    ]*/
+  // Handle the click on a specific graph.
+  // Handover data to the Home component.
+  const handleGraphItem = event => {
+    console.log(event.detail.item.dataset.id);
+    setGraph(event.detail.item.dataset.id);
+    getGraph(event.detail.item.dataset.id);
+    getVariant(undefined)
+  }
 
+  // Handle the click on a variant. 
+  // Handover data to the Home component
+  const handleVariantItem = event => {
+    var result = [];
+    event.detail.selectedItems.forEach(element => {
+      result.push(element.dataset.id);
+    })
+    console.log(result);
+    getVariant(result);
+  }
+
+  // Fetch the different graph ids from backend
   async function getGraphIds() {
     await axios
-      .get("/ids")
+      .get("/graph/ids")
       .then((response) => {
-        setGraphIds(response.data);
+        var graphMap = [];
+        response.data.forEach(element => {
+          graphMap.push({id: element, name: element});
+        });
+        console.log(graphMap);
+        setGraphIds(graphMap);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  // Use effect for the graph id fetching
   React.useEffect(() => {
     getGraphIds();
   }, []);
+
+
+  // Use effect for the variants fetching
+  React.useEffect(() => {
+    async function getVariants() {
+      await axios
+        .post(
+          "/graph/" + graph,
+          { variants: [], sequence: "" },
+          { headers: { "Access-Control-Allow-Origin": "*" } }
+        )
+        .then((response) => {
+          var result = [];
+          var variants = response.data.dfg.graph[0].data.variants;
+          let keys = Object.keys(variants)
+          keys.forEach(element => {
+            result.push({id: element, name: element})
+          })
+          setVariants(result)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    getVariants();
+  }, [graph]);
 
   return (
     <>
@@ -43,10 +90,11 @@ export default function Header() {
               separators="None"
               class="card-content-child"
               style={{ height: "320px" }}
+              onItemClick={handleGraphItem}
             >
               {graphIds.map((listItem) => (
-                <StandardListItem image={Pfeil} description="42.000 variants">
-                  #{listItem}
+                <StandardListItem image={Arrow} description="12 Variants" key={listItem.id} data-id={listItem.id}>
+                  #{listItem.name}
                 </StandardListItem>
               ))}
             </List>
@@ -57,30 +105,19 @@ export default function Header() {
             <ui5-icon name="group" slot="avatar"></ui5-icon>
           </ui5-card-header>
           <div class="card-content">
-            <ui5-list
+            <List
               separators="None"
               style={{ height: "300px" }}
               class="card-content-child"
+              mode="MultiSelect"
+              onSelectionChange={handleVariantItem}
             >
-              <ui5-li image={Nummer} description="1.333 cases">
-                {"A -> B -> C -> D"}
-              </ui5-li>
-              <ui5-li image={Nummer} description="599 cases">
-                {"A -> B -> D"}
-              </ui5-li>
-              <ui5-li image={Nummer} description="20 cases">
-                {"B -> A -> C -> D"}
-              </ui5-li>
-              <ui5-li image={Nummer} description="20 cases">
-                {"B -> A -> C -> D"}
-              </ui5-li>
-              <ui5-li image={Nummer} description="20 cases">
-                {"B -> A -> C -> D"}
-              </ui5-li>
-              <ui5-li image={Nummer} description="20 cases">
-                {"B -> A -> C -> D"}
-              </ui5-li>
-            </ui5-list>
+              {variants.map((listItem) => (
+             <StandardListItem description="599 cases" key={listItem.id} data-id={listItem.id}>
+                #{listItem.name}
+             </StandardListItem>
+              ))}
+            </List>
           </div>
         </ui5-card>
       </div>
