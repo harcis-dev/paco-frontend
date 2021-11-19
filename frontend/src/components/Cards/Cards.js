@@ -5,30 +5,30 @@ import { useState } from "react";
 import axios from "axios";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
 
-export default function Cards({ getGraph, getVariant}) {
+export default function Cards({ getGraph, getVariant }) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();
 
   // Handle the click on a specific graph.
   // Handover data to the Home component.
-  const handleGraphItem = event => {
+  const handleGraphItem = (event) => {
     console.log(event.detail.item.dataset.id);
     setGraph(event.detail.item.dataset.id);
     getGraph(event.detail.item.dataset.id);
-    getVariant(undefined)
-  }
+    getVariant(undefined);
+  };
 
-  // Handle the click on a variant. 
+  // Handle the click on a variant.
   // Handover data to the Home component
-  const handleVariantItem = event => {
+  const handleVariantItem = (event) => {
     var result = [];
-    event.detail.selectedItems.forEach(element => {
+    event.detail.selectedItems.forEach((element) => {
       result.push(element.dataset.id);
-    })
+    });
     console.log(result);
     getVariant(result);
-  }
+  };
 
   // Fetch the different graph ids from backend
   async function getGraphIds() {
@@ -36,8 +36,8 @@ export default function Cards({ getGraph, getVariant}) {
       .get("/graph/ids")
       .then((response) => {
         var graphMap = [];
-        response.data.forEach(element => {
-          graphMap.push({id: element, name: element});
+        response.data.forEach((element) => {
+          graphMap.push({ id: element, name: element });
         });
         console.log(graphMap);
         setGraphIds(graphMap);
@@ -52,7 +52,6 @@ export default function Cards({ getGraph, getVariant}) {
     getGraphIds();
   }, []);
 
-
   // Use effect for the variants fetching
   React.useEffect(() => {
     async function getVariants() {
@@ -65,11 +64,11 @@ export default function Cards({ getGraph, getVariant}) {
         .then((response) => {
           var result = [];
           var variants = response.data.dfg.graph[0].data.variants;
-          let keys = Object.keys(variants)
-          keys.forEach(element => {
-            result.push({id: element, name: element})
-          })
-          setVariants(result)
+          let keys = Object.keys(variants);
+          keys.forEach((element) => {
+            result.push({ id: element, name: element });
+          });
+          setVariants(result);
         })
         .catch((err) => {
           console.log(err);
@@ -93,7 +92,12 @@ export default function Cards({ getGraph, getVariant}) {
               onItemClick={handleGraphItem}
             >
               {graphIds.map((listItem) => (
-                <StandardListItem image={Arrow} description="12 Variants" key={listItem.id} data-id={listItem.id}>
+                <StandardListItem
+                  image={Arrow}
+                  description="12 Variants"
+                  key={listItem.id}
+                  data-id={listItem.id}
+                >
                   #{listItem.name}
                 </StandardListItem>
               ))}
@@ -113,9 +117,13 @@ export default function Cards({ getGraph, getVariant}) {
               onSelectionChange={handleVariantItem}
             >
               {variants.map((listItem) => (
-             <StandardListItem description="599 cases" key={listItem.id} data-id={listItem.id}>
-                #{listItem.name}
-             </StandardListItem>
+                <StandardListItem
+                  description="599 cases"
+                  key={listItem.id}
+                  data-id={listItem.id}
+                >
+                  #{listItem.name}
+                </StandardListItem>
               ))}
             </List>
           </div>
