@@ -19,6 +19,7 @@ export const epc=
     style: {
       'shape': 'round-rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'border-width': '1px',
@@ -37,6 +38,7 @@ export const epc=
       'background-fit': 'cover',
       'background-clip' : 'none',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'width' : '150px',
@@ -49,6 +51,7 @@ export const epc=
     style: {
       'shape': 'hexagon',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'border-width': '1px',
       'text-halign': 'center',
       'text-valign': 'center',
@@ -62,6 +65,7 @@ export const epc=
     style: {
       'label': 'X',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-color': '#ffffff',
@@ -74,6 +78,7 @@ export const epc=
     style: {
       'label': 'Ʌ',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-color': '#ffffff',
@@ -86,6 +91,7 @@ export const epc=
     style: {
       'label': 'V',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-color': '#ffffff',
@@ -98,6 +104,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'background-fit': 'cover',
       'background-image': ClusterSVG,
       'border-width': '1px',
@@ -113,6 +120,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'border-width': '1px',
       'text-halign': 'center',
       'text-valign': 'center',
@@ -126,6 +134,7 @@ export const epc=
     style: {
       'label': 'data(label)',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -141,6 +150,7 @@ export const epc=
     style: {
       'label': 'data(label)',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -157,6 +167,7 @@ export const epc=
     style: {
       'label': 'data(label)',
       'border-width': '1px',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -172,6 +183,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'border-width': '1px',
       'text-halign': 'center',
       'text-valign': 'center',
@@ -188,6 +200,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -203,6 +216,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -218,6 +232,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -233,6 +248,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'border-width': '1px',
@@ -248,6 +264,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'border-width': '1px',
@@ -261,6 +278,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'border-width': '1px',
@@ -274,6 +292,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'border-width': '1px',
@@ -289,6 +308,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -305,6 +325,7 @@ export const epc=
     style: {
       'shape': 'rectangle',
       'label': 'data(label)',
+      'text-wrap': 'wrap',
       'text-halign': 'center',
       'text-valign': 'center',
       'background-fit': 'cover',
@@ -321,14 +342,18 @@ export const epc=
   {
       selector: 'edge',
       style: {
-        'width': 1,
+        'width': "data(width)",
+        'label': 'data(label)',
+        'text-wrap': 'wrap',
         'line-color': '#000000',
       }
   },
   {
       selector: 'edge[type="InformationFlow"]',
       style: {
-        'width': 1,
+        'width': "data(width)",
+        'label': 'data(label)',
+        'text-wrap': 'wrap',
         'line-color': '#000000',
         'target-arrow-shape': 'triangle',
         'target-arrow-color': '#000000',
@@ -341,7 +366,9 @@ export const epc=
           'line-style': 'dashed',
           'line-color': '#000000',
           'target-arrow-shape': 'triangle',
-          'width': 1,
+          'width': "data(width)",
+          'label': 'data(label)',
+          'text-wrap': 'wrap',
           'curve-style': 'bezier',
           'target-arrow-color': '#000000',
       }
