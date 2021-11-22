@@ -8,8 +8,8 @@ export default function Footer(props) {
   const [graph, setGraph] = useState();
   const variantId = props.getVariant;
   const graphId = props.getGraph;
-  console.log(variantId)
-  console.log(graphId)
+  //console.log(variantId)
+  //console.log(graphId)
 
   const downloadGraph = () => {
     console.log(graph)
@@ -38,7 +38,7 @@ export default function Footer(props) {
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
-          console.log(response.data + " test")
+          //console.log(response.data + " test")
           setGraph(response.data)
         })
         .catch((err) => {
