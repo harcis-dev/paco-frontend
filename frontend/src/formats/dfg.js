@@ -23,7 +23,6 @@ export const dfg = [
             'font-size' : '16px',
             'label': 'data(label)',
             'text-background-opacity': 1,
-            'text-background-colour': '#ffffff',
             'text-wrap': 'wrap',
             'text-overflow-wrap': 'anywhere',
             'text-background-color': 'white',
