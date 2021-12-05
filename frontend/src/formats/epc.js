@@ -345,6 +345,8 @@ export const epc=
         'width': "data(width)",
         'label': 'data(label)',
         'text-wrap': 'wrap',
+        'text-background-opacity': 1,
+        'text-background-color': 'white',
         'line-color': '#000000',
       }
   },
@@ -354,6 +356,8 @@ export const epc=
         'width': "data(width)",
         'label': 'data(label)',
         'text-wrap': 'wrap',
+        'text-background-opacity': 1,
+        'text-background-color': 'white',
         'line-color': '#000000',
         'target-arrow-shape': 'triangle',
         'target-arrow-color': '#000000',
@@ -369,6 +373,8 @@ export const epc=
           'width': "data(width)",
           'label': 'data(label)',
           'text-wrap': 'wrap',
+          'text-background-opacity': 1,
+          'text-background-color': 'white',
           'curve-style': 'bezier',
           'target-arrow-color': '#000000',
       }
