@@ -37,9 +37,8 @@ export default function Cards({ getGraph, getVariant }) {
       .then((response) => {
         var graphMap = [];
         response.data.forEach((element) => {
-          graphMap.push({ id: element, name: element });
+          graphMap.push(element);
         });
-        console.log(graphMap);
         setGraphIds(graphMap);
       })
       .catch((err) => {
@@ -62,9 +61,12 @@ export default function Cards({ getGraph, getVariant }) {
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
+          console.log(response);
           var result = [];
           var variants = response.data.dfg.graph[0].data.variants;
           let keys = Object.keys(variants);
+          console.log(keys);
+          console.log("test");
           keys.forEach((element) => {
             result.push({ id: element, name: element });
           });
