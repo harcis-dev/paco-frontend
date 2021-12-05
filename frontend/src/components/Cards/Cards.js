@@ -54,6 +54,7 @@ export default function Cards({ getGraph, getVariant}) {
       })
       .then((response) => {
         console.log(response)
+        getGraphIds()
       })
   }
 
@@ -125,7 +126,7 @@ export default function Cards({ getGraph, getVariant}) {
   const handleEditClose = () => setShowEdit(false);
   const handleEdit = () => {
     changeGraphName(name, itemChangeId)
-    getGraphIds();
+   // getGraphIds();
     setShowEdit(false);
   }
   const handleEditShow = (id) => {
