@@ -2,7 +2,7 @@ import React from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import dagre from "cytoscape-dagre";
 import cytoscape from "cytoscape";
-//import { epc } from '../../formats/epc.js';
+import { epc } from '../../formats/epc.js';
 import { dfg } from "../../formats/dfg.js";
 import { diagramXML } from "../../diagram.js";
 import axios from "axios";
@@ -20,7 +20,9 @@ function Canvas(props) {
 
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
-  //const [epcGraph, setEPCGraph] = React.useState({});
+  const [epcGraph, setEPCGraph] = React.useState({});
+  const [style, setStyle] = React.useState("");
+  const [graph, setGraph] = React.useState("");
   //const [bpmnGraph, setBPMNGraph] = React.useState({});
 
   // Status messages for the BPMN graph in the browser console
@@ -39,7 +41,7 @@ function Canvas(props) {
   // Use the fetchGraph function
   React.useEffect(() => {
      // Fetch graph from node backend
-     console.log(variantId + "var")
+     console.log(variantId + " var")
      async function fetchGraph() {
       await axios
         .post(
@@ -49,7 +51,7 @@ function Canvas(props) {
         )
         .then((response) => {
           setDFGGraph(response.data.dfg.graph);
-          //setEPCGraph(response.data.epc.graph)
+          setEPCGraph(response.data.epc.graph)
           //setBPMNGraph(response.data.bpmn.graph)
         })
         .catch((err) => {
@@ -59,16 +61,30 @@ function Canvas(props) {
   fetchGraph()
   }, [graphId, variantId]);
 
-  // Choose the right styling and the right graph
-  let style = "";
-  let graph = "";
-  if (graphFormat === "DFG") {
-    style = dfg;
-    graph = dfgGraph;
-  } /* else if (graphFormat === "EPC") {
-            style = epc;
-            graph = epcGraph;
-        }*/
+  const CytoscapeComp = () => {
+      // Choose the right styling and the right graph  
+      if (graphFormat === "DFG") {
+      setStyle(dfg);
+      setGraph(dfgGraph);
+    }  else if (graphFormat === "EPC") {
+              setStyle(epc);
+              setGraph(epcGraph);
+    } 
+
+    return  <CytoscapeComponent
+    className="cytoscape"
+    wheelSensitivity={0.1}
+    maxZoom={2}
+    userZoomingEnabled={true}
+    cy={
+      (cy) => {cy.layout(layout).run() // Apply the dagre layout
+      cy.fit()
+     }
+    }
+    elements={Array.from(graph)}
+    stylesheet={style} // The different graph types.
+  />
+  }
 
   return graphFormat === "BPMN" ? (
     <ReactBpmn
@@ -79,18 +95,7 @@ function Canvas(props) {
       onError={onError}
     />
   ) : (
-    <CytoscapeComponent
-      className="cytoscape"
-      wheelSensitivity={0.1}
-      maxZoom={2}
-      userZoomingEnabled={true}
-      cy={
-        (cy) => {cy.layout(layout).run() // Apply the dagre layout
-        cy.fit()}
-      }
-      elements={Array.from(graph)}
-      stylesheet={style} // The different graph types.
-    />
+   <CytoscapeComp></CytoscapeComp>
   );
 }
 
