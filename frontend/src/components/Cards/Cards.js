@@ -224,10 +224,3 @@ export default function Cards({ getGraph, getVariant}) {
     </>
   );
 }
-
-
-/*
-<div class="col0"> 
-<img src={Arrow} alt="Arrow" class="image"/>
-</div>
-*/
