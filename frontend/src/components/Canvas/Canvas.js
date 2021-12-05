@@ -4,6 +4,7 @@ import dagre from "cytoscape-dagre";
 import cytoscape from "cytoscape";
 import { epc } from '../../formats/epc.js';
 import { dfg } from "../../formats/dfg.js";
+import { bpmn } from "../../formats/bpmn.js";
 import { diagramXML } from "../../diagram.js";
 import axios from "axios";
 import ReactBpmn from "react-bpmn";
@@ -21,9 +22,9 @@ function Canvas(props) {
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
   const [epcGraph, setEPCGraph] = React.useState({});
+  const [bpmnGraph, setBPMNGraph] = React.useState({});
   const [style, setStyle] = React.useState("");
   const [graph, setGraph] = React.useState("");
-  //const [bpmnGraph, setBPMNGraph] = React.useState({});
 
   // Status messages for the BPMN graph in the browser console
   function onShown() {
@@ -52,7 +53,7 @@ function Canvas(props) {
         .then((response) => {
           setDFGGraph(response.data.dfg.graph);
           setEPCGraph(response.data.epc.graph)
-          //setBPMNGraph(response.data.bpmn.graph)
+          setBPMNGraph(response.data.bpmn.graph)
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +70,10 @@ function Canvas(props) {
     }  else if (graphFormat === "EPC") {
               setStyle(epc);
               setGraph(epcGraph);
-    } 
+    }  else if (graphFormat === "BPMN") {
+      setStyle(bpmn);
+      setGraph(bpmnGraph)
+    }
 
     return  <CytoscapeComponent
     className="cytoscape"
@@ -77,7 +81,12 @@ function Canvas(props) {
     maxZoom={2}
     userZoomingEnabled={true}
     cy={
-      (cy) => {cy.layout(layout).run() // Apply the dagre layout
+      (cy) => {
+      if( graphFormat === "BPMN") {
+        cy.layout({name: 'dagre', rankDir: 'LR'}).run() // Apply the dagre layout
+      } else {
+        cy.layout(layout).run() // Apply the dagre layout
+      }
       cy.fit()
      }
     }
@@ -86,7 +95,7 @@ function Canvas(props) {
   />
   }
 
-  return graphFormat === "BPMN" ? (
+  return graphFormat === "BPMN Import" ? (
     <ReactBpmn
       class="djs-container"
       diagramXML={diagramXML}

@@ -10,6 +10,7 @@ export default function SubHeader({ getFormat }) {
     { id: "DFG", text: "DFG" },
     { id: "EPC", text: "EPC" },
     { id: "BPMN", text: "BPMN" },
+    { id: "BPMN Import", text: "BPMN Import" },
   ];
 
   const handleFormat = (e) => {
