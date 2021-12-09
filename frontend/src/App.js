@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import { ThemeProvider } from "@ui5/webcomponents-react";
 
 function App() {
-  return  (
+  return (
     <div>
       <ThemeProvider>
         <Router>
@@ -14,6 +14,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

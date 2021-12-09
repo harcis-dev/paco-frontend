@@ -46,3 +46,7 @@
   font-family: "Lato", sans-serif;
 }
 
+body {
+  min-width: 860px;
+  min-height: 600px;
+}

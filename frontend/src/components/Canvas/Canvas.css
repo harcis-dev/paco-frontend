@@ -3,11 +3,12 @@
   left: 2%;
   top: 40px;
   flex: content;
-  height: 65vh;
+  height: calc(100vh - 300px);
 
   float: left;
   display: inline;
-  width: 80%;
+  width: calc(100vw - 300px);
+  min-width: 560px;
 }
 
 .react-bpmn-diagram-container {
@@ -15,9 +16,9 @@
   top: 40px;
   flex: content;
   float: left;
-  height: 65vh;
+  height: calc(100vh - 300px);
   display: inline;
-  width: 80%;
+  width: calc(100vw - 300px);
   margin-left: 2%;
   margin-top: 40px;
 }

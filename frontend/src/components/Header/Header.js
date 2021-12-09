@@ -84,7 +84,7 @@ export default function Header() {
             <SideNavigationSubItem text="SideNavigationSubItem 2" />
           </SideNavigationItem>
         </SideNavigation>
-        ;
+        Das ist ein random Text
       </Dialog>
     </>
   );
