@@ -1,3 +1,5 @@
+import NoneStartSVG from '../assets/dfg/none_start.svg'
+
 export const bpmn = 
 [
     {
@@ -9,6 +11,21 @@ export const bpmn =
           'text-halign': 'center',
           'text-valign': 'center',
           'border-width': '0.5px',
+          'background-color': '#ffffff',
+          'width': '30px',
+          'height': '30px'
+        }
+      },
+      {
+        selector: 'node[type="Intermediate"]',
+        style: {
+          'shape': 'circle',
+          'label': 'data(label)',
+          'text-wrap': 'wrap',
+          'text-halign': 'center',
+          'text-valign': 'center',
+          'border-width': '3px',
+          'border-style': 'double',
           'background-color': '#ffffff',
           'width': '30px',
           'height': '30px'
@@ -33,6 +50,40 @@ export const bpmn =
         style: {
           'shape': 'diamond',
           'label': 'X',
+          'border-width': '0.5px',
+          'text-wrap': 'wrap',
+          'text-halign': 'center',
+          'text-valign': 'center',
+          'background-fit': 'cover',
+          'background-color': '#ffffff',
+          'width': '30px',
+          'height': '30px'
+        }
+      },
+      {
+        selector: 'node[type="Inclusive"]',
+        style: {
+          'shape': 'diamond',
+          'background-image': NoneStartSVG,
+          'border-width': '0.5px',
+          'background-width': '1%',
+          'background-height': '1%',
+          'text-wrap': 'wrap',
+          'text-halign': 'center',
+          'text-valign': 'center',
+          'background-fit': 'cover',
+          'background-color': '#ffffff',
+          'width': '30px',
+          'height': '30px'
+        }
+      },
+      {
+        selector: 'node[type="Parallel"]',
+        style: {
+          'shape': 'diamond',
+          'label': '+',
+          'text-margin-y': '0.5px',
+          'font-size': '35px',
           'border-width': '0.5px',
           'text-wrap': 'wrap',
           'text-halign': 'center',
