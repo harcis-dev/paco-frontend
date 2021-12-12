@@ -5,3 +5,7 @@
   height: 100px;
   padding-right: 40px;
 }
+
+.toast {
+  color: red;
+}

@@ -10,6 +10,8 @@ function Home() {
   const [format, setGraphFormat] = useState('DFG');
   const [graph, setGraph] = useState();
   const [variant, setVariant] = useState();
+  // console.log(graph)
+  // console.log(variant)
 
   return (
     <>
@@ -22,7 +24,8 @@ function Home() {
                 getGraph={graph} 
                 getVariant={variant}/>
         <Footer getGraph={graph}
-                getVariant={variant}/>
+                getVariant={variant}
+                getFormat={format}/>
       </div>
     </>
   );
