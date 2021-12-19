@@ -1,0 +1,25 @@
+#subheader {
+  height: 90px;
+  padding-left: 20px;
+  padding-right: 40px;
+  position: relative;
+}
+
+label:hover,
+label:active,
+input:hover + label,
+input:active + label {
+  background: rgb(235, 245, 254);
+}
+
+
+.btn {
+  margin-left: 20px;
+  border: 1px solid rgb(12, 84, 164);
+  padding: 8.5px;
+  border-radius: 4px;
+  position: relative;
+  top: -12.5px;
+  color: rgb(12, 84, 164);
+  font-size: 14px;
+}
