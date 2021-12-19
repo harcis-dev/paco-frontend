@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SubheaderCSV.css";
 import ReactFileReader from 'react-file-reader';
 
-export default function SubHeader() {
-
-  // Idee CSV als Textdatei an Node.jd backend schicken. Darüber wird es persistiert entweder auf Serve oder als Binary
-  // Kann 
+export default function SubHeader({getCSV}) {
 
   const handleFiles = files => {
     var reader = new FileReader();
     reader.onload = function(e) {
-      console.log(reader.result);
+      getCSV(reader.result)
     }
     reader.readAsText(files[0]);
   }
