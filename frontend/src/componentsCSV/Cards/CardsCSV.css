@@ -43,3 +43,18 @@
   box-sizing:border-box
  }
  
+ .col1 {
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+
+.col2 {
+  padding: 5px;
+  width: 30%;
+}
+
+.csv-name {
+  font-weight: bold;
+  font-size: 20px;
+}
