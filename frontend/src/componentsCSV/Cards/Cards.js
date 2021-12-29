@@ -14,11 +14,13 @@ import axios from 'axios';
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 
-export default function Cards() {
+export default function Cards(props) {
 
   const [csvIds, setCSVIds] = useState([]);
   const [showDel, setShowDel] = useState(false);
   const [itemId, setItemId] = useState();
+  const needRefresh = props.getRefresh
+  console.log(props.getRefresh)
 
   async function getCSVIds() {
     await axios
@@ -43,7 +45,7 @@ export default function Cards() {
   // Use effect for the graph id fetching
   React.useEffect(() => {
     getCSVIds();
-  }, []);
+  }, [needRefresh]);
 
   async function delCSVFile(id) {
     await axios.delete("/graph/csv/" + id).then(function (response) {
@@ -95,7 +97,7 @@ export default function Cards() {
           <List
               separators="None"
               class="card-content-child"
-              style={{ height: "320px" }}
+              style={{ height: "800px" }}
               //onItemClick={handleGraphItem}
             >
           {csvIds.map((listItem) => (

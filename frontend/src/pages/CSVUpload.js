@@ -8,13 +8,15 @@ import React, { useState } from "react";
 function CSVUpload() {
 
     const [csv, setCSV] = useState('');
+    const [refresh, setRefresh] = useState('');
 
     return (
       <>
         <div className="csvupload">
             <Header/>
-            <Subheader getCSV={csv => setCSV(csv)}/>
-            <Cards/>
+            <Subheader getCSV={csv => setCSV(csv)}
+                       getRefresh={refresh => setRefresh(refresh)}/>
+            <Cards getRefresh={refresh}/>
             <CSVPreview getCSV={csv} />
             <Footer/>
         </div>
