@@ -29,7 +29,7 @@ export default function SubHeader({getCSV, getRefresh}) {
       });  
   }
   
-  const handleFiles = files => {
+  const handleFiles = files =>   {
     if(files[0].name.split(".")[1] === "csv") {
       getCSVIds()
       console.log("Handle files " + count)
@@ -40,11 +40,18 @@ export default function SubHeader({getCSV, getRefresh}) {
       }
       reader.readAsText(files[0]);
       console.log(files[0])
-      const formData = new FormData();
+      importCSV(files[0])
+   } else {
+     console.log("No csv file!")
+   }
+  }
+
+  async function importCSV(files) {
+    const formData = new FormData();
       formData.append('_id', count)
-      formData.append('name', files[0].name.split(".")[0])
-      formData.append('file', files[0])
-      axios.post("http://localhost:8080/graph/csv/import", formData, {
+      formData.append('name', files.name.split(".")[0])
+      formData.append('file', files)
+      await axios.post("http://localhost:8080/graph/csv/import", formData, {
       })
       .then(res => {
         console.log(res.statusText)
@@ -53,9 +60,6 @@ export default function SubHeader({getCSV, getRefresh}) {
       .catch((err) => {
         console.log(err);
       });
-   } else {
-     console.log("No csv file!")
-   }
   }
 
   return (
