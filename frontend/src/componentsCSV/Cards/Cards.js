@@ -12,10 +12,13 @@ import {
 import { Icon } from '@ui5/webcomponents-react';
 import axios from 'axios';
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 export default function Cards() {
 
   const [csvIds, setCSVIds] = useState([]);
+  const [showDel, setShowDel] = useState(false);
+  const [itemId, setItemId] = useState();
 
   async function getCSVIds() {
     await axios
@@ -41,6 +44,27 @@ export default function Cards() {
   React.useEffect(() => {
     getCSVIds();
   }, []);
+
+  async function delCSVFile(id) {
+    await axios.delete("/graph/csv/" + id).then(function (response) {
+      console.log("CSV file deleted");
+      console.log(response);
+    });
+  }
+
+  // Handle the deletion dialog
+  const handleDelClose = () => setShowDel(false);
+  const handleDelete = () => {
+    delCSVFile(itemId);
+    const newList = csvIds.filter((item) => item.id !== itemId);
+    setCSVIds(newList);
+    setShowDel(false);
+  };
+  const handleDelShow = (id) => {
+    console.log(id);
+    setItemId(id);
+    setShowDel(true);
+  };
   
   return (
     <>
@@ -54,6 +78,20 @@ export default function Cards() {
             <ui5-icon name="overview-chart" slot="avatar"></ui5-icon>
           </ui5-card-header>
           <div class="card-content">
+          <Modal show={showDel} onHide={handleDelClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>CSV file deletion</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Do you wanna delete this CSV file?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="primary" onClick={() => handleDelete()}>
+                  Delete
+                </Button>
+                <Button variant="secondary" onClick={handleDelClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           <List
               separators="None"
               class="card-content-child"
@@ -77,7 +115,7 @@ export default function Cards() {
                     <Button
                       class="btn-del"
                       icon="sap-icon://delete"
-                      //onClick={() => handleDelShow(listItem.id)}
+                      onClick={() => handleDelShow(listItem.id)}
                     ></Button>
                   </div>
                 </CustomListItem>

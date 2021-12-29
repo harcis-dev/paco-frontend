@@ -5,7 +5,6 @@ import axios from 'axios';
 
 export default function SubHeader({getCSV}) {
   
-
   const handleFiles = files => {
     var reader = new FileReader();
     reader.onload = function(e) {
