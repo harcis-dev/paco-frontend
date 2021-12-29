@@ -17,7 +17,7 @@ export default function SubHeader({getCSV}) {
     formData.append('_id', 1)
     formData.append('name', 'test1')
     formData.append('file', files[0])
-    axios.post("http://192.168.178.27:8080/graph/csv/import", formData, {
+    axios.post("http://localhost:8080/graph/csv/import", formData, {
     })
     .then(res => {
       console.log(res.statusText)
