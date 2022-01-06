@@ -34,7 +34,7 @@ export default function SubHeader({ getFormat }) {
       .then((response) => {
         console.log(response);
       });
-    await timeout(1000);
+    await timeout(500); //TODO
     window.location.reload(false);
   }
 
@@ -70,6 +70,7 @@ export default function SubHeader({ getFormat }) {
             id="file"
             style={{ display: "none" }}
             className="custom-file-input"
+            accept=".xlsx, .xls, .csv, .json, .bpmn, .graphml"
             onChange={(e) => handleFileChosen(e.target.files[0])}
           />
         </div>

@@ -34,7 +34,7 @@ input:active + label {
 .sliderClass {
   flex: 30%;
   padding: 40px;
-  padding-bottom: 20px;
+  padding-bottom: 23px;
 }
 
 .selectClass {
@@ -47,12 +47,11 @@ input:active + label {
 }
 
 .sliderNode {
-  top: 20px;
   width: 120px;
+  height: 40px;
 }
 
 .sliderEdge {
-  top: 20px;
   width: 120px;
 }
 
@@ -65,4 +64,8 @@ input:active + label {
   position: relative;
   bottom: 10px;
   right: 20px;
+}
+
+#textNodes {
+  bottom: 5px;
 }

@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import paco from "./Paco.png";
 import profilePicture from "./profilePictureExample.png";
 import {
@@ -9,6 +10,17 @@ import {
   Button,
   List,
   Bar,
+  Form,
+  FormItem,
+  Input,
+  InputType,
+  CheckBox,
+  FormGroup,
+  Label,
+  Select,
+  Option,
+  TextArea,
+  Text,
   Icon,
   Title,
   SideNavigation,
@@ -28,13 +40,19 @@ export default function Header() {
     [popoverRef]
   );
 
-  const dialogRef = useRef(null);
-  const itemClick = () => {
-    dialogRef.current.show();
+  const dialogSettingsRef = useRef(null);
+  const settingsClick = () => {
+    dialogSettingsRef.current.show();
   };
-  const handleClose = () => {
-    dialogRef.current.close();
+  const handlesettingsClose = () => {
+    dialogSettingsRef.current.close();
   };
+
+  const history = useHistory();
+
+  function handleLogout() {
+    history.push("/Login");
+  }
 
   return (
     <>
@@ -57,34 +75,85 @@ export default function Header() {
         id="popover"
       >
         <div class="popover-content">
-          <List headerText="Profile" separators="Inner">
-            <StandardListItem onClick={itemClick} icon="add">
-              test
+          <List headerText="Max Mustermann" separators="Inner">
+            <StandardListItem onClick={settingsClick} icon="settings">
+              Settings
             </StandardListItem>
-            <StandardListItem icon="sys-find">Settings</StandardListItem>
-            <StandardListItem icon="accept"> Messages</StandardListItem>
+            <StandardListItem icon="sys-help">Help</StandardListItem>
+            <StandardListItem onClick={handleLogout} icon="log">
+              Sign out
+            </StandardListItem>
           </List>
         </div>
       </Popover>
       <Dialog
-        ref={dialogRef}
-        id="Dialog"
+        ref={dialogSettingsRef}
+        class="settingsdialog"
         header={
           <Bar endContent={<Icon name="settings" />}>
-            <Title>Dialog</Title>
+            <Title>Settings</Title>
           </Bar>
         }
         footer={
-          <Bar endContent={<Button onClick={handleClose}>Close</Button>} />
+          <div class="settingsFooter">
+            <Button
+              variant="primary"
+              design="Emphasized"
+              onClick={handlesettingsClose}
+            >
+              Save
+            </Button>
+            &nbsp; &nbsp; &nbsp;
+            <Button variant="secondary" onClick={handlesettingsClose}>
+              Close
+            </Button>
+          </div>
         }
       >
-        <SideNavigation>
-          <SideNavigationItem>
-            <SideNavigationSubItem text="SideNavigationSubItem 1" />
-            <SideNavigationSubItem text="SideNavigationSubItem 2" />
-          </SideNavigationItem>
-        </SideNavigation>
-        Das ist ein random Text
+        <div id="settingsdialog">
+          <div id="sidenav">
+            <SideNavigation>
+              <SideNavigationItem text="Account"></SideNavigationItem>
+              <SideNavigationItem text="Notifications"></SideNavigationItem>
+              <SideNavigationItem text="Security"></SideNavigationItem>
+              <SideNavigationItem text="Data export"></SideNavigationItem>
+              <SideNavigationItem text="Help & Feedback"></SideNavigationItem>
+            </SideNavigation>
+          </div>
+          <div id="form">
+            <Form>
+              <FormGroup titleText={"Personal Data"}>
+                <FormItem label={"First Name"}>
+                  <Input type={InputType.Text} value="Max" />
+                </FormItem>
+                <FormItem label={"Last Name"}>
+                  <Input type={InputType.Text} value="Mustermann" />
+                </FormItem>
+                <FormItem label={<Label>Address</Label>}>
+                  <Input type={InputType.Text} value="Musterstraße 123" />
+                </FormItem>
+                <FormItem label={"Country"}>
+                  <Select>
+                    <Option>Germany</Option>
+                    <Option>France</Option>
+                    <Option>Italy</Option>
+                  </Select>
+                </FormItem>
+                <FormItem label="Additional Comment">
+                  <TextArea
+                    rows={3}
+                    style={{
+                      width: "210px",
+                    }}
+                  />
+                </FormItem>
+                <FormItem label={"Home address"}>
+                  <CheckBox checked />
+                </FormItem>
+              </FormGroup>
+            </Form>
+          </div>
+        </div>
       </Dialog>
     </>
   );

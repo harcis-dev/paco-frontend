@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 //import Arrow from "./arrow.svg";
 import "./Cards.css";
 import { useState } from "react";
@@ -9,17 +9,15 @@ import {
   Button,
   Text,
   Input,
+  Dialog,
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
-import { Modal } from "react-bootstrap";
 //import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Cards({ getGraph, getVariant }) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();
-  const [showDel, setShowDel] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
   const [itemId, setItemId] = useState();
   const [itemChangeId, setItemChangeId] = useState();
   const [name, setName] = useState("");
@@ -116,31 +114,42 @@ export default function Cards({ getGraph, getVariant }) {
     getVariants();
   }, [graph]);
 
-  // Handle the deletion dialog
-  const handleDelClose = () => setShowDel(false);
-  const handleDelete = () => {
+  // Handle editButton
+  const editdialogRef = useRef(null);
+
+  const oneditButtonClick = (id) => {
+    setItemChangeId(id);
+    editdialogRef.current.show();
+  };
+
+  const handleeditClose = () => {
+    editdialogRef.current.close();
+    setName("");
+  };
+
+  const handleeditClick = () => {
+    changeGraphName(name, itemChangeId);
+    editdialogRef.current.close();
+    setName("");
+  };
+
+  // Handle deleteButton
+  const deletedialogRef = useRef(null);
+
+  const ondeleteButtonClick = (id) => {
+    setItemId(id);
+    deletedialogRef.current.show();
+  };
+
+  const handledeleteClose = () => {
+    deletedialogRef.current.close();
+  };
+
+  const handledeleteClick = () => {
     delGraph(itemId);
     const newList = graphIds.filter((item) => item.id !== itemId);
     setGraphIds(newList);
-    setShowDel(false);
-  };
-  const handleDelShow = (id) => {
-    console.log(id);
-    setItemId(id);
-    setShowDel(true);
-  };
-
-  // Handle the editing dialog
-  const handleEditClose = () => setShowEdit(false);
-  const handleEdit = () => {
-    changeGraphName(name, itemChangeId);
-    // getGraphIds();
-    setShowEdit(false);
-  };
-  const handleEditShow = (id) => {
-    console.log(id);
-    setItemChangeId(id);
-    setShowEdit(true);
+    deletedialogRef.current.close();
   };
 
   return (
@@ -155,42 +164,64 @@ export default function Cards({ getGraph, getVariant }) {
             <ui5-icon name="overview-chart" slot="avatar"></ui5-icon>
           </ui5-card-header>
           <div class="card-content">
-            <Modal show={showDel} onHide={handleDelClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Graph deletion</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Do you wanna delete this graph?</Modal.Body>
-              <Modal.Footer>
-                <Button variant="primary" onClick={() => handleDelete()}>
-                  Delete
-                </Button>
-                <Button variant="secondary" onClick={handleDelClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            <Modal show={showEdit} onHide={handleEditClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Graph naming</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                Do you wanna change the name of this item?
-              </Modal.Body>
-              <Modal.Footer>
+            <Dialog
+              id="edit-dialog"
+              ref={editdialogRef}
+              footer={
+                <div class="inputEdit">
+                  <Button
+                    variant="primary"
+                    design="Emphasized"
+                    onClick={handleeditClick}
+                  >
+                    Change
+                  </Button>
+                  &nbsp; &nbsp; &nbsp;
+                  <Button variant="secondary" onClick={handleeditClose}>
+                    Close
+                  </Button>
+                </div>
+              }
+              headerText="Graph naming"
+            >
+              <div id="editDialog">
+                Do you want to change the name of this item?
+                <br></br>
+                <br></br>
                 <label>New Name:</label>
+                &nbsp; &nbsp; &nbsp;
                 <Input
-                  id="inputField"
+                  class="inputField"
                   placeholder="New name..."
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 ></Input>
-                <Button variant="primary" onClick={() => handleEdit()}>
-                  Change
-                </Button>
-                <Button variant="secondary" onClick={handleEditClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
+              </div>
+            </Dialog>
+
+            <Dialog
+              id="delete-dialog"
+              ref={deletedialogRef}
+              footer={
+                <div class="inputDelete">
+                  <Button
+                    variant="primary"
+                    design="Emphasized"
+                    onClick={handledeleteClick}
+                  >
+                    Delete
+                  </Button>
+                  &nbsp; &nbsp; &nbsp;
+                  <Button variant="secondary" onClick={handledeleteClose}>
+                    Close
+                  </Button>
+                </div>
+              }
+              headerText="Graph deletion"
+            >
+              <div id="deleteDialog">Do you want to delete this graph?</div>
+            </Dialog>
+
             <List
               separators="None"
               class="card-content-child"
@@ -216,14 +247,14 @@ export default function Cards({ getGraph, getVariant }) {
                     <Button
                       class="btn-edit"
                       icon="sap-icon://edit"
-                      onClick={() => handleEditShow(listItem.id)}
+                      onClick={() => oneditButtonClick(listItem.id)}
                     ></Button>
                   </div>
                   <div class="col3">
                     <Button
                       class="btn-del"
                       icon="sap-icon://delete"
-                      onClick={() => handleDelShow(listItem.id)}
+                      onClick={() => ondeleteButtonClick(listItem.id)}
                     ></Button>
                   </div>
                 </CustomListItem>
