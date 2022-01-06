@@ -2,22 +2,20 @@ import React from "react";
 //import Arrow from "./arrow.svg";
 import "./CardsCSV.css";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
-import "bootstrap/dist/css/bootstrap.min.css";
 import {
   List,
   CustomListItem,
   Button,
   Text,
+  Dialog
 } from "@ui5/webcomponents-react";
 import { Icon } from '@ui5/webcomponents-react';
 import axios from 'axios';
-import { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { useState, useRef } from "react";
 
 export default function Cards(props) {
 
   const [csvIds, setCSVIds] = useState([]);
-  const [showDel, setShowDel] = useState(false);
   const [itemId, setItemId] = useState();
   const needRefresh = props.getRefresh
   console.log(props.getRefresh)
@@ -54,19 +52,24 @@ export default function Cards(props) {
     });
   }
 
-  // Handle the deletion dialog
-  const handleDelClose = () => setShowDel(false);
-  const handleDelete = () => {
+  // Handle deleteButton
+  const deletedialogRef = useRef(null);
+
+  const ondeleteButtonClick = (id) => {
+    setItemId(id);
+    deletedialogRef.current.show();
+  };
+
+  const handledeleteClose = () => {
+    deletedialogRef.current.close();
+  };
+
+  const handledeleteClick = () => {
     delCSVFile(itemId);
     const newList = csvIds.filter((item) => item.id !== itemId);
     setCSVIds(newList);
-    setShowDel(false);
-  };
-  const handleDelShow = (id) => {
-    console.log(id);
-    setItemId(id);
-    setShowDel(true);
-  };
+    deletedialogRef.current.close();
+   };
   
   return (
     <>
@@ -79,21 +82,29 @@ export default function Cards(props) {
           >
             <ui5-icon name="overview-chart" slot="avatar"></ui5-icon>
           </ui5-card-header>
-          <div class="card-content">
-          <Modal show={showDel} onHide={handleDelClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>CSV file deletion</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Do you wanna delete this CSV file?</Modal.Body>
-              <Modal.Footer>
-                <Button variant="primary" onClick={() => handleDelete()}>
-                  Delete
-                </Button>
-                <Button variant="secondary" onClick={handleDelClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
+          <div class="card-content">  
+          <Dialog
+              id="delete-dialog"
+              ref={deletedialogRef}
+              footer={
+                <div class="inputDelete">
+                  <Button
+                    variant="primary"
+                    design="Emphasized"
+                    onClick={handledeleteClick}
+                  >
+                    Delete
+                  </Button>
+                  &nbsp; &nbsp; &nbsp;
+                  <Button variant="secondary" onClick={handledeleteClose}>
+                    Close
+                  </Button>
+                </div>
+              }
+              headerText="Graph deletion"
+            >
+              <div id="deleteDialog">Do you want to delete this graph?</div>
+            </Dialog>
           <List
               separators="None"
               class="card-content-child"
@@ -117,7 +128,7 @@ export default function Cards(props) {
                     <Button
                       class="btn-del"
                       icon="sap-icon://delete"
-                      onClick={() => handleDelShow(listItem.id)}
+                      onClick={() => ondeleteButtonClick(listItem.id)}
                     ></Button>
                   </div>
                 </CustomListItem>
