@@ -40,6 +40,11 @@ export default function Cards(props) {
       });
   }
 
+  const handleCSVItem = (event) => {
+    console.log(event.detail.item.dataset.id);
+    props.getPreview(event.detail.item.dataset.id)
+  }
+
   // Use effect for the graph id fetching
   React.useEffect(() => {
     getCSVIds();
@@ -109,14 +114,11 @@ export default function Cards(props) {
               separators="None"
               class="card-content-child"
               style={{ height: "800px" }}
-              //onItemClick={handleGraphItem}
+              onItemClick={handleCSVItem}
             >
           {csvIds.map((listItem) => (
                 <CustomListItem key={listItem.id} data-id={listItem.id} >
                   <div class="col1">
-                      <div>
-                       <Text>#{listItem.id}</Text>
-                      </div>
                       <Icon name="documents"></Icon>
                       <Text
                         style={{ fontSize: "16px", fontWeight: "bold", marginLeft: '10px'}}

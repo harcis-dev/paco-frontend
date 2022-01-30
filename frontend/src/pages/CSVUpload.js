@@ -9,6 +9,7 @@ function CSVUpload() {
 
     const [csv, setCSV] = useState('');
     const [refresh, setRefresh] = useState('');
+    const [preview, setPreview] = useState('');
 
     return (
       <>
@@ -17,8 +18,9 @@ function CSVUpload() {
             <Subheader getCSV={csv => setCSV(csv)}
                        getRefresh={refresh => setRefresh(refresh)}
                        />
-            <Cards getRefresh={refresh}/>
-            <CSVPreview getCSV={csv} />
+            <Cards getRefresh={refresh} getPreview={preview => setPreview(preview)}/>
+            <CSVPreview getCSV={csv} 
+                        getCsvPreview={preview}/>
             <Footer/>
         </div>
       </>

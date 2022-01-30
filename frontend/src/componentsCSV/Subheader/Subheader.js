@@ -22,9 +22,11 @@ export default function SubHeader({getCSV, getRefresh}) {
           response.data.forEach((element) => {
             ids.push(element._id)
           })
+          getRefresh(ids.length);
           console.log(Math.max(...ids))
           setCount(Math.max(...ids) + 1)
-        } else {
+        }
+         else {
           setCount(1)
         } 
       })
