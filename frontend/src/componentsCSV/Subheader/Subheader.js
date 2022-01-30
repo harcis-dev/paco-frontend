@@ -2,7 +2,11 @@ import React from "react";
 import "./SubheaderCSV.css";
 import ReactFileReader from 'react-file-reader';
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useRef } from "react";
+import {
+  Toast,
+  ThemeProvider
+} from "@ui5/webcomponents-react";
 
 export default function SubHeader({getCSV, getRefresh}) {
 
@@ -46,6 +50,9 @@ export default function SubHeader({getCSV, getRefresh}) {
    }
   }
 
+  const successToast = useRef();
+  const failureToast = useRef();
+
   async function importCSV(files) {
     const formData = new FormData();
       formData.append('_id', count)
@@ -56,8 +63,10 @@ export default function SubHeader({getCSV, getRefresh}) {
       .then(res => {
         console.log(res.statusText)
         console.log(res.headers)
+        successToast.current.show();
       })
       .catch((err) => {
+        failureToast.current.show();
         console.log(err);
       });
   }
@@ -71,6 +80,12 @@ export default function SubHeader({getCSV, getRefresh}) {
           </ReactFileReader>
         </div>
       </ui5-bar>
+      <ThemeProvider>
+        <Toast  class="test" ref={successToast}>Successfully uploaded!</Toast>
+      </ThemeProvider>
+      <ThemeProvider>
+        <Toast ref={failureToast}>An error has occurred!</Toast>
+      </ThemeProvider>
     </div>
   );
 }

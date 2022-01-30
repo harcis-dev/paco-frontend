@@ -15,7 +15,8 @@ function CSVUpload() {
         <div className="csvupload">
             <Header/>
             <Subheader getCSV={csv => setCSV(csv)}
-                       getRefresh={refresh => setRefresh(refresh)}/>
+                       getRefresh={refresh => setRefresh(refresh)}
+                       />
             <Cards getRefresh={refresh}/>
             <CSVPreview getCSV={csv} />
             <Footer/>

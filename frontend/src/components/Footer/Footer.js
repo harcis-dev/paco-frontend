@@ -23,6 +23,7 @@ export default function Footer(props) {
     console.log(graph)
     if(graph === undefined) {
       console.log("No graph selected!")
+      showToast()
     } else {
       var file;
       if (format === "DFG") {
