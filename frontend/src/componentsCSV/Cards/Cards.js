@@ -15,11 +15,13 @@ import { useState, useRef } from "react";
 
 export default function Cards(props) {
 
+  // Variable which stores the csv ids
   const [csvIds, setCSVIds] = useState([]);
   const [itemId, setItemId] = useState();
   const needRefresh = props.getRefresh
   console.log(props.getRefresh)
 
+  // REST request to get the csv ids
   async function getCSVIds() {
     await axios
       .get("/graph/csv/ids")
@@ -27,6 +29,7 @@ export default function Cards(props) {
         var csvMap = [];
         response.data.forEach((element) => {
           console.log(element._id);
+          // Store the id and the name in an array
           csvMap.push({
             id: element._id,
             name: element.name
@@ -40,6 +43,7 @@ export default function Cards(props) {
       });
   }
 
+  // Handle the csv item an send its id to the parent
   const handleCSVItem = (event) => {
     console.log(event.detail.item.dataset.id);
     props.getPreview(event.detail.item.dataset.id)
@@ -50,6 +54,7 @@ export default function Cards(props) {
     getCSVIds();
   }, [needRefresh]);
 
+  // REST request to delete one csv file from the list
   async function delCSVFile(id) {
     await axios.delete("/graph/csv/" + id).then(function (response) {
       console.log("CSV file deleted");
@@ -60,15 +65,18 @@ export default function Cards(props) {
   // Handle deleteButton
   const deletedialogRef = useRef(null);
 
+  // Open delete dialog
   const ondeleteButtonClick = (id) => {
     setItemId(id);
     deletedialogRef.current.show();
   };
 
+  // Close dialog if close was pressed
   const handledeleteClose = () => {
     deletedialogRef.current.close();
   };
 
+  // Handle the deletion of the specific file
   const handledeleteClick = () => {
     delCSVFile(itemId);
     const newList = csvIds.filter((item) => item.id !== itemId);
