@@ -70,7 +70,7 @@ export default function SubHeader({getRefresh}) {
         </div>
       </ui5-bar>
       <ThemeProvider>
-        <Toast  class="test" ref={successToast}>Successfully uploaded!</Toast>
+        <Toast ref={successToast}>Successfully uploaded!</Toast>
       </ThemeProvider>
       <ThemeProvider>
         <Toast ref={failureToast}>An error has occurred!</Toast>
