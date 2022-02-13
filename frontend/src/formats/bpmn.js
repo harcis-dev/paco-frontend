@@ -1,4 +1,5 @@
 import NoneStartSVG from '../assets/dfg/none_start.svg'
+import ParallelSVG from '../assets/bpmn/parallel_icon.svg'
 
 export const bpmn = 
 [
@@ -66,8 +67,6 @@ export const bpmn =
           'shape': 'diamond',
           'background-image': NoneStartSVG,
           'border-width': '0.5px',
-          'background-width': '1%',
-          'background-height': '1%',
           'text-wrap': 'wrap',
           'text-halign': 'center',
           'text-valign': 'center',
@@ -81,9 +80,7 @@ export const bpmn =
         selector: 'node[type="Parallel"]',
         style: {
           'shape': 'diamond',
-          'label': '+',
-          'text-margin-y': '0.5px',
-          'font-size': '35px',
+          'background-image': ParallelSVG,
           'border-width': '0.5px',
           'text-wrap': 'wrap',
           'text-halign': 'center',
