@@ -5,7 +5,6 @@ import Subheader from "../components/Subheader/Subheader.js";
 import Footer from "../components/Footer/Footer.js";
 import Cards from "../components/Cards/Cards.js";
 import Canvas from "../components/Canvas/Canvas";
-import Login from "../pages/Login";
 
 function Home() {
   const [format, setGraphFormat] = useState("DFG");

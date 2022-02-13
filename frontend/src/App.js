@@ -1,17 +1,28 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Login from "../src/components/Login/Login";
 import { ThemeProvider } from "@ui5/webcomponents-react";
+import React, { useState } from "react";
+import useToken from "./useToken";
 
 function App() {
+  //   const { token, setToken } = useToken();
+
+  //   if (!token) {
+  //     return <Login setToken={setToken} />;
+  //   }
+
   return (
     <div>
       <ThemeProvider>
-        <Router>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" exact component={Login} />
-        </Router>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </BrowserRouter>
       </ThemeProvider>
     </div>
   );

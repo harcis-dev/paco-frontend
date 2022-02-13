@@ -20,11 +20,9 @@ import {
   Select,
   Option,
   TextArea,
-  Text,
   Icon,
   Title,
   SideNavigation,
-  SideNavigationSubItem,
   SideNavigationItem,
   PopoverPlacementType,
   Dialog,
@@ -52,6 +50,8 @@ export default function Header() {
 
   function handleLogout() {
     history.push("/Login");
+    sessionStorage.removeItem("token");
+    window.location.reload(false);
   }
 
   return (
