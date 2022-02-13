@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Text, Button, Select } from "@ui5/webcomponents-react";
+import { Text, Button, Select, FileUploader } from "@ui5/webcomponents-react";
 import "./Subheader.css";
 import axios from "axios";
 
@@ -67,16 +67,12 @@ export default function SubHeader({ getFormat }) {
           >
             Fetch new model from SAP
           </Button>
-          <label id="import" for="file">
-            Import Model
-          </label>
-          <input
-            type="file"
-            id="file"
-            style={{ display: "none" }}
-            className="custom-file-input"
-            onChange={(e) => handleFileChosen(e.target.files[0])}
-          />
+          <FileUploader hideInput
+              id="import"
+              className="custom-file-input"
+              onChange={(e) => handleFileChosen(e.detail.files[0])}>
+              <Button>Import Model</Button>
+          </FileUploader>
           <Button id="csvIm"
             onClick={navigatTo}>
             Import CSV

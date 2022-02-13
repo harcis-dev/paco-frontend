@@ -7,13 +7,8 @@
 
 #import {
   margin-left: 20px;
-  border: 1px solid rgb(12, 84, 164);
   padding: 8.5px;
-  border-radius: 4px;
   position: relative;
-  top: -12.5px;
-  color: rgb(12, 84, 164);
-  font-size: 14px;
 }
 
 #csvIm {
