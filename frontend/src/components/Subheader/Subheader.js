@@ -10,6 +10,7 @@ import {
   CustomListItem,
   FormGroup,
   Select,
+  FileUploader,
   Text,
   Icon,
   Title,
@@ -17,6 +18,7 @@ import {
 } from "@ui5/webcomponents-react";
 import "./Subheader.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export default function SubHeader({ getFormat }) {
   const [format, setFormat] = useState("DFG");
@@ -177,6 +179,8 @@ export default function SubHeader({ getFormat }) {
 
   var password = "";
   var user = "";
+
+  const history = useHistory();
 
   const navigatTo = () => history.push("/upload");
 

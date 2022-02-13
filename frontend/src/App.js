@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
 import Home from "./pages/Home";
 import CSVUpload from "./pages/CSVUpload";
 import Login from "../src/components/Login/Login";
@@ -16,14 +16,14 @@ function App() {
 
   return (
     <div>
-      <ThemeProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <div>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/upload" exact component={CSVUpload} />
+            <Route path="/" component={Home} exact />
+            <Route path="/upload" component={CSVUpload} />
           </Switch>
-        </BrowserRouter>
-      </ThemeProvider>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
