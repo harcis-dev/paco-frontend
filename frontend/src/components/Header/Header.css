@@ -3,9 +3,26 @@
   position: absolute;
 }
 
-#dialog {
-  position: absolute;
-  width: 500px;
-  width: 80%;
-  height: 80%;
+.settingsFooter {
+  height: 60px;
+  padding: 11px;
+  display: flex;
+}
+
+#settingsdialog {
+  margin: 32px;
+  font-size: 1rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  display: flex;
+  width: 600px;
+}
+
+#sidenav {
+  flex: 0 0 55%;
+}
+
+#form {
+  flex: 1;
 }

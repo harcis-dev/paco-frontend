@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #f7f7f7;
 }
 
 .App-logo {
@@ -46,3 +47,7 @@
   font-family: "Lato", sans-serif;
 }
 
+body {
+  min-width: 860px;
+  min-height: 600px;
+}
