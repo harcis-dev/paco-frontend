@@ -24,4 +24,10 @@ input:active + label {
   font-size: 14px;
 }
 
+#importCSV {
+  margin-left: 20px;
+  padding: 8.5px;
+  position: relative;
+}
+
  

@@ -1,11 +1,12 @@
 import React from "react";
 import "./SubheaderCSV.css";
-import ReactFileReader from 'react-file-reader';
 import axios from 'axios';
 import { useRef } from "react";
 import {
   Toast,
-  ThemeProvider
+  ThemeProvider,
+  FileUploader,
+  Button
 } from "@ui5/webcomponents-react";
 
 export default function SubHeader({getRefresh}) {
@@ -31,6 +32,7 @@ export default function SubHeader({getRefresh}) {
   
   // Handle the csv file
   const handleFiles = files =>   {
+    console.log(files)
     if(files[0].name.split(".")[1] === "csv") {
       getCSVIds()
       importCSV(files[0])
@@ -64,9 +66,11 @@ export default function SubHeader({getRefresh}) {
     <div class="flex-container">
       <ui5-bar design="Subheader" id="subheader">
         <div class="btnImport" slot="startContent">
-          <ReactFileReader handleFiles={handleFiles} fileTypes={['.csv']}>
-            <button id="csvImport" className="btn">Upload CSV File</button>
-          </ReactFileReader>
+          <FileUploader hideInput
+            id="importCSV"
+            onChange={e => handleFiles(e.detail.files)}>
+            <Button>Import Model</Button>
+        </FileUploader>
         </div>
       </ui5-bar>
       <ThemeProvider>
