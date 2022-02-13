@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Text, Button, Select } from "@ui5/webcomponents-react";
 import "./Subheader.css";
 import axios from "axios";
 
 export default function SubHeader({ getFormat }) {
   const [format, setFormat] = useState("DFG");
+  const history = useHistory();
 
   const data = [
     { id: "DFG", text: "DFG" },
@@ -51,6 +53,8 @@ export default function SubHeader({ getFormat }) {
     fileReader.readAsText(file);
   };
 
+  const navigatTo = () => history.push("/upload");
+
   return (
     <div class="flex-container">
       <ui5-bar design="Subheader" id="subheader">
@@ -73,6 +77,10 @@ export default function SubHeader({ getFormat }) {
             className="custom-file-input"
             onChange={(e) => handleFileChosen(e.target.files[0])}
           />
+          <Button id="csvIm"
+            onClick={navigatTo}>
+            Import CSV
+          </Button>
         </div>
 
         <div id="sliders" class="sliderClass" slot="endContent">

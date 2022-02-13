@@ -16,6 +16,11 @@
   font-size: 14px;
 }
 
+#csvIm {
+  margin-left: 20px;
+  padding: 8.5px;
+}
+
 label:hover,
 label:active,
 input:hover + label,
