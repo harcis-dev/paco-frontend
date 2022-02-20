@@ -15,10 +15,14 @@ import {
   Icon,
   Title,
   Dialog,
+  Slider,
+  Card,
+  CardHeader,
 } from "@ui5/webcomponents-react";
 import "./Subheader.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+
 
 export default function SubHeader({ getFormat }) {
   const [format, setFormat] = useState("DFG");
@@ -29,7 +33,10 @@ export default function SubHeader({ getFormat }) {
   const [Client, setClient] = useState("");
   const [ListIds, setListIds] = useState([]);
   const [Current, setCurrent] = useState("");
+  const history = useHistory();
 
+  const navigatTo = () => history.push("/upload");
+  
   const data = [
     { id: "DFG", text: "DFG" },
     { id: "EPC", text: "EPC" },
@@ -162,11 +169,11 @@ export default function SubHeader({ getFormat }) {
 
   const onClickAdd = () => {
     if (
-      MSHOST != "" &&
-      R3Name != "" &&
-      Group != "" &&
-      SAPRouter != "" &&
-      Client != ""
+      MSHOST !== "" &&
+      R3Name !== "" &&
+      Group !== "" &&
+      SAPRouter !== "" &&
+      Client !== ""
     ) {
       localStorage.setItem(
         MSHOST,
@@ -180,14 +187,12 @@ export default function SubHeader({ getFormat }) {
   var password = "";
   var user = "";
 
-  const history = useHistory();
-
-  const navigatTo = () => history.push("/upload");
+ 
 
   return (
     <>
       <div class="flex-container">
-        <ui5-bar design="Subheader" id="subheader">
+        <Bar design="Subheader" id="subheader">
           <div class="btnClass" slot="startContent">
             <Button
               onClick={handleFetchModelClick}
@@ -218,7 +223,7 @@ export default function SubHeader({ getFormat }) {
                   <Text id="textNodes">Nodes</Text>
                 </td>
                 <td>
-                  <ui5-slider class="sliderNode"></ui5-slider>
+                  <Slider class="sliderNode"></Slider>
                 </td>
               </tr>
               <tr>
@@ -226,7 +231,7 @@ export default function SubHeader({ getFormat }) {
                   <Text id="textEdges">Edges</Text>
                 </td>
                 <td>
-                  <ui5-slider class="sliderEdge"></ui5-slider>
+                  <Slider class="sliderEdge"></Slider>
                 </td>
               </tr>
             </table>
@@ -241,8 +246,11 @@ export default function SubHeader({ getFormat }) {
               ))}
             </Select>
           </div>
-        </ui5-bar>
+        </Bar>
       </div>
+
+
+
       <Dialog
         ref={dialogSettingsRef}
         class="importdialog"
@@ -254,14 +262,14 @@ export default function SubHeader({ getFormat }) {
       >
         <div id="fetchDialog">
           <div className="cards2">
-            <ui5-card class="medium2">
-              <ui5-card-header
+            <Card class="medium2">
+              <CardHeader
                 slot="header"
                 title-text="Logins"
                 class="card-header2"
               >
-                <ui5-icon name="sap-icon://account" slot="avatar"></ui5-icon>
-              </ui5-card-header>
+                <Icon  name="sap-icon://account" slot="avatar"></Icon>
+              </CardHeader>
               <div class="card-content">
                 <List
                   separators="None"
@@ -292,7 +300,7 @@ export default function SubHeader({ getFormat }) {
                   ))}
                 </List>
               </div>
-            </ui5-card>
+            </Card >
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           <div id="form">
@@ -333,18 +341,21 @@ export default function SubHeader({ getFormat }) {
                     onChange={(e) => setClient(e.target.value)}
                   />
                 </FormItem>
-                &nbsp;
-                <FormItem>
-                  <Button onClick={onClickAdd}>Add</Button>
-                </FormItem>
-                <FormItem>
-                  <Button onClick={handleCloseClick}>Close</Button>
-                </FormItem>
+                <FormItem >
+                  <Button id="leftBtn" onClick={onClickAdd}>Add</Button>
+                </FormItem>        
               </FormGroup>
             </Form>
           </div>
         </div>
+        <Button id="rightBtn" onClick={handleCloseClick}>Close</Button>
       </Dialog>
+
+
+
+
+
+      
       <Dialog
         id="delete-dialog2"
         ref={deletedialogRef}

@@ -10,6 +10,9 @@ import {
   Text,
   Input,
   Dialog,
+  CardHeader,
+  Card, 
+  Icon,
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -155,14 +158,14 @@ export default function Cards({ getGraph, getVariant }) {
   return (
     <>
       <div className="cards">
-        <ui5-card class="medium">
-          <ui5-card-header
+        <Card class="medium">
+          <CardHeader
             slot="header"
             title-text="Process Models"
             class="card-header"
           >
-            <ui5-icon name="overview-chart" slot="avatar"></ui5-icon>
-          </ui5-card-header>
+            <Icon name="overview-chart" slot="avatar"></Icon>
+          </CardHeader>
           <div class="card-content">
             <Dialog
               id="edit-dialog"
@@ -261,15 +264,15 @@ export default function Cards({ getGraph, getVariant }) {
               ))}
             </List>
           </div>
-        </ui5-card>
-        <ui5-card class="medium">
-          <ui5-card-header
+        </Card>
+        <Card class="medium">
+          <CardHeader
             slot="header"
             title-text="Variants"
             class="card-header"
           >
-            <ui5-icon name="org-chart" slot="avatar"></ui5-icon>
-          </ui5-card-header>
+            <Icon name="org-chart" slot="avatar"></Icon>
+          </CardHeader>
           <div class="card-content">
             <List
               separators="None"
@@ -289,7 +292,7 @@ export default function Cards({ getGraph, getVariant }) {
               ))}
             </List>
           </div>
-        </ui5-card>
+        </Card>
       </div>
     </>
   );

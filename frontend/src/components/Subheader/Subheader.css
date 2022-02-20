@@ -11,6 +11,15 @@
   position: relative;
 }
 
+#leftBtn {
+  margin-top: 20px;
+}
+
+#rightBtn {
+  float: right;
+  margin-top: 20px;
+}
+
 #csvIm {
   margin-left: 20px;
   padding: 8.5px;

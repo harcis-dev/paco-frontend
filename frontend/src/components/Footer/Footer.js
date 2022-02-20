@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Button, ThemeProvider, Toast } from "@ui5/webcomponents-react";
+import { Button, ThemeProvider, Toast, Bar } from "@ui5/webcomponents-react";
 import axios from "axios";
 import "./Footer.css";
 
@@ -115,7 +115,7 @@ export default function Footer(props) {
 
 
   return (
-    <ui5-bar design="Footer" id="footer">
+    <Bar design="Footer" id="footer">
       <Button
         onClick={downloadGraph}
         slot="endContent"
@@ -126,6 +126,6 @@ export default function Footer(props) {
       <ThemeProvider class="toast">
         <Toast ref={toast}>Export not possible!</Toast>
       </ThemeProvider>
-    </ui5-bar>
+    </Bar>
   );
 }

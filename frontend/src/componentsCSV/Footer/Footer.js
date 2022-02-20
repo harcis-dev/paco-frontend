@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "@ui5/webcomponents-react";
+import { Button, Bar } from "@ui5/webcomponents-react";
 
 
 export default function Footer() {
@@ -8,7 +8,7 @@ export default function Footer() {
   const navigateTo = () => history.push("/");
 
   return (
-    <ui5-bar design="Footer" id="footer">
+    <Bar design="Footer" id="footer">
       <Button
         onClick={navigateTo}
         slot="endContent"
@@ -16,6 +16,6 @@ export default function Footer() {
       >
         Display Model
       </Button>
-    </ui5-bar>
+    </Bar>
   );
 }

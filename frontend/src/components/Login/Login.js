@@ -19,7 +19,7 @@ export default function Login({ setToken }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (username == "admin" && password == "test123") {
+    if (username === "admin" && password === "test123") {
       const token = await loginUser({
         username,
         password,
