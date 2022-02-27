@@ -73,8 +73,8 @@ function Canvas(props) {
       setStyle(dfg);
       setGraph(dfgGraph);
     }  else if (graphFormat === "EPC") {
-              setStyle(epc);
-              setGraph(epcGraph);
+      setStyle(epc);
+      setGraph(epcGraph);
     }  else if (graphFormat === "BPMN") {
       setStyle(bpmn);
       setGraph(bpmnGraph)

@@ -109,19 +109,51 @@ export default function SubHeader(props) {
       .then((response) => {
         console.log(response);
       });
-    await timeout(500); //TODO
-    window.location.reload(false);
+      await timeout(500); //TODO
+      window.location.reload(false);
+  }
+
+  async function importEpml() {
+    await axios
+      .post("/graph/import", {
+       _id: 100,
+       epc: content
+      })
+      .then((response) => {
+        console.log(response);
+      });
+      await timeout(500); //TODO
+      window.location.reload(false);
+  }
+
+  async function importGraphml() {
+    await axios
+      .post("/graph/import", {
+       _id: 42,
+       dfg: content
+      })
+      .then((response) => {
+        console.log(response);
+      });
+      await timeout(500); //TODO
+      window.location.reload(false);
   }
 
   let fileReader;
-  const handleFileRead = (e) => {
-    content = fileReader.result;
-    console.log(content);
-    postFile();
-  };
+
   const handleFileChosen = (file) => {
     fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
+    var dataType = file.name.split(".")[1]
+    fileReader.onloadend = () => {
+      content = fileReader.result;
+      console.log(content);
+      if (dataType === "json")
+       postFile();
+      else if (dataType === "epml")
+       importEpml();
+      else if (dataType === "graphml")
+        importGraphml();
+    };;
     fileReader.readAsText(file);
   };
 
@@ -249,7 +281,7 @@ export default function SubHeader(props) {
               hideInput
               id="import"
               className="custom-file-input"
-              accept=".xlsx, .xls, .csv, .json, .bpmn, .graphml"
+              accept=".xlsx, .xls, .csv, .json, .bpmn, .graphml, .epml"
               onChange={(e) => handleFileChosen(e.target.files[0])}
             >
               <Button>Import Model</Button>

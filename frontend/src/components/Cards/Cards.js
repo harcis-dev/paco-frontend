@@ -104,7 +104,7 @@ export default function Cards({ getGraph, getVariant, getGraphTypes }) {
         )
         .then((response) => {
           var result = [];
-          var variants = response.data.dfg.graph[0].data.variants;
+          var variants = response.data.dfg.graph[0].data.variants;     
           let keys = Object.keys(variants);
           keys.forEach((element) => {
             result.push({ id: element, name: element });
