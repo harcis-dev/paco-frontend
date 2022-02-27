@@ -24,7 +24,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 
-export default function SubHeader({ getFormat }) {
+export default function SubHeader(props) {
   const [format, setFormat] = useState("DFG");
   const [MSHOST, setMSHOST] = useState("");
   const [R3Name, setR3Name] = useState("");
@@ -34,20 +34,63 @@ export default function SubHeader({ getFormat }) {
   const [ListIds, setListIds] = useState([]);
   const [Current, setCurrent] = useState("");
   const history = useHistory();
+  const graphId = props.getGraph;
+  const [data, setData] = useState([])
 
   const navigatTo = () => history.push("/upload");
+
   
-  const data = [
-    { id: "DFG", text: "DFG" },
-    { id: "EPC", text: "EPC" },
-    { id: "BPMN", text: "BPMN" },
-    { id: "BPMN Import", text: "BPMN Import" },
-  ];
+
+  
+
+ React.useEffect(() => {
+   // Function to choose the right graph type
+  function chooseGraphType(graphMap) {
+    var typeMap = [];
+    var graph = graphMap.find(x => x.id === graphId)
+    console.log(graph);
+    for (let i = 0; i < graph.types.length; i++) {
+          if (graph.types[i] === "dfg") {
+            typeMap[i] = {id: "DFG", text: "DFG"} 
+          } else if (graph.types[i] === "epc") {
+            typeMap[i] = {id: "EPC", text: "EPC"}
+          } else if (graph.types[i] === "bpmn") {
+            typeMap[i] = {id: "BPMN", text: "BPMN"}
+          } else {
+            typeMap[i] = {id: "BPMN Import", text: "BPMN Import"}
+          }
+    }
+    console.log(typeMap);
+    setData(typeMap);
+  }
+  // Get the graph ids and choose the graph types of a specific graph.
+  async function getGraphIds() {
+    await axios
+      .get("/graph/ids")
+      .then((response) => {
+        var graphMap = [];
+        response.data.forEach((element) => {
+          console.log(element._id);
+          graphMap.push({
+            id: element._id,
+            types: element.graphTypes
+          });
+        });
+        console.log(graphMap);
+        chooseGraphType(graphMap);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+    getGraphIds();
+  }, [graphId]);
+
 
   const handleFormat = (e) => {
     setFormat(e.detail.selectedOption.dataset.id);
     console.log(e.detail.selectedOption.dataset.id);
-    getFormat(e.detail.selectedOption.dataset.id);
+    props.getFormat(e.detail.selectedOption.dataset.id);
   };
 
   function timeout(ms) {

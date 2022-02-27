@@ -17,7 +17,7 @@ import {
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 //import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Cards({ getGraph, getVariant }) {
+export default function Cards({ getGraph, getVariant, getGraphTypes }) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();
@@ -59,11 +59,14 @@ export default function Cards({ getGraph, getVariant }) {
       })
       .then((response) => {
         console.log(response);
-        getGraphIds();
       });
   }
 
-  // Fetch the different graph ids from backend
+  
+
+  // Use effect for the graph id fetching
+  React.useEffect(() => {
+    // Fetch the different graph ids from backend
   async function getGraphIds() {
     await axios
       .get("/graph/ids")
@@ -81,16 +84,14 @@ export default function Cards({ getGraph, getVariant }) {
         });
         console.log(graphMap);
         setGraphIds(graphMap);
+        
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
-  // Use effect for the graph id fetching
-  React.useEffect(() => {
     getGraphIds();
-  }, []);
+  }, [name]);
 
   // Use effect for the variants fetching
   React.useEffect(() => {
