@@ -47,20 +47,25 @@ function Canvas(props) {
       await axios
         .post(
           "/graph/" + graphId,
-          { variants: variantId === undefined ? [] : variantId, sequence: "" },
+          { variants: variantId === undefined ? [] : variantId, sequence: "", graphTypes: [graphFormat]},
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
-          setDFGGraph(response.data.dfg.graph);
-          setEPCGraph(response.data.epc.graph)
-          setBPMNGraph(response.data.bpmn.graph)
+          console.log(graphFormat)
+          if (graphFormat === "DFG") {
+            setDFGGraph(response.data.dfg.graph);
+          } else if (graphFormat === "EPC") {
+            setEPCGraph(response.data.epc.graph)
+          } else if (graphFormat === "BPMN") {
+            setBPMNGraph(response.data.bpmn.graph)
+          }
         })
         .catch((err) => {
           console.log(err);
         });
     }
   fetchGraph()
-  }, [graphId, variantId]);
+  }, [graphId, variantId, graphFormat]);
 
   const CytoscapeComp = () => {
       // Choose the right styling and the right graph  
