@@ -25,7 +25,6 @@ import { useHistory } from "react-router-dom";
 
 
 export default function SubHeader(props) {
-  const [format, setFormat] = useState("DFG");
   const [MSHOST, setMSHOST] = useState("");
   const [R3Name, setR3Name] = useState("");
   const [Group, setGroup] = useState("");
@@ -36,11 +35,9 @@ export default function SubHeader(props) {
   const history = useHistory();
   const graphId = props.getGraph;
   const [data, setData] = useState([])
+  const [format, setFormat] = useState()
 
   const navigatTo = () => history.push("/upload");
-
-  
-
   
 
  React.useEffect(() => {
@@ -49,6 +46,7 @@ export default function SubHeader(props) {
     var typeMap = [];
     var graph = graphMap.find(x => x.id === graphId)
     console.log(graph);
+    // Loop through the current graph and add the supported formats to an array.
     for (let i = 0; i < graph.types.length; i++) {
           if (graph.types[i] === "dfg") {
             typeMap[i] = {id: "DFG", text: "DFG"} 
@@ -59,6 +57,15 @@ export default function SubHeader(props) {
           } else {
             typeMap[i] = {id: "BPMN Import", text: "BPMN Import"}
           }
+    }
+    setFormat(typeMap[0].id)
+    // Check the current format and if it is unequal to undefined
+    if (graph.types.includes(format.toLowerCase()) && format !== undefined) {
+      // If the current graph supports the selected format show it
+      props.getFormat(typeMap[graph.types.indexOf(format.toLowerCase())].id)
+    } else {
+      // If the graph doesn't support the current format show another supported format. 
+      props.getFormat(typeMap[0].id)
     }
     console.log(typeMap);
     setData(typeMap);
@@ -84,12 +91,13 @@ export default function SubHeader(props) {
       });
   }
     getGraphIds();
-  }, [graphId]);
+  }, [graphId]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const handleFormat = (e) => {
-    setFormat(e.detail.selectedOption.dataset.id);
-    console.log(e.detail.selectedOption.dataset.id);
+    // Set the format to a dynamic variable
+    setFormat(e.detail.selectedOption.dataset.id)
+    console.log(e.detail.selectedOption);
     props.getFormat(e.detail.selectedOption.dataset.id);
   };
 

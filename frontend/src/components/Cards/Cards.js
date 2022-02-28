@@ -17,7 +17,7 @@ import {
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 //import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Cards({ getGraph, getVariant, getGraphTypes }) {
+export default function Cards({ getGraph, getVariant }) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();

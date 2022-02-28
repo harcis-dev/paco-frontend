@@ -39,6 +39,7 @@ function Canvas(props) {
     console.log("failed to show diagram");
   }
 
+
   // Use the fetchGraph function
   React.useEffect(() => {
      // Fetch graph from node backend
