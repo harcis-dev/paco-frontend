@@ -7,7 +7,7 @@ import Cards from "../components/Cards/Cards.js";
 import Canvas from "../components/Canvas/Canvas";
 
 function Home() {
-  const [format, setGraphFormat] = useState();
+  const [format, setGraphFormat] = useState("DFG");
   const [graph, setGraph] = useState();
   const [variant, setVariant] = useState();
   // console.log(graph)

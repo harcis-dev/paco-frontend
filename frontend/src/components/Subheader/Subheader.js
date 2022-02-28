@@ -35,7 +35,7 @@ export default function SubHeader(props) {
   const history = useHistory();
   const graphId = props.getGraph;
   const [data, setData] = useState([])
-  const [format, setFormat] = useState()
+  const [format, setFormat] = useState("DFG")
 
   const navigatTo = () => history.push("/upload");
   
