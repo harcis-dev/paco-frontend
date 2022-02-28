@@ -17,21 +17,22 @@ import {
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 //import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Cards({ getGraph, getVariant }) {
+export default function Cards(props) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
   const [graph, setGraph] = useState();
   const [itemId, setItemId] = useState();
   const [itemChangeId, setItemChangeId] = useState();
   const [name, setName] = useState("");
+  const refresh = props.getRefresh;
 
   // Handle the click on a specific graph.
   // Handover data to the Home component.
   const handleGraphItem = (event) => {
     console.log(event.detail.item.dataset.id);
     setGraph(event.detail.item.dataset.id);
-    getGraph(event.detail.item.dataset.id);
-    getVariant(undefined);
+    props.getGraph(event.detail.item.dataset.id);
+    props.getVariant(undefined);
   };
 
   // Handle the click on a variant.
@@ -42,7 +43,7 @@ export default function Cards({ getGraph, getVariant }) {
       result.push(element.dataset.id);
     });
     console.log(result);
-    getVariant(result);
+    props.getVariant(result);
   };
 
   async function delGraph(id) {
@@ -91,7 +92,7 @@ export default function Cards({ getGraph, getVariant }) {
       });
   }
     getGraphIds();
-  }, [name]);
+  }, [name, refresh]);
 
   // Use effect for the variants fetching
   React.useEffect(() => {

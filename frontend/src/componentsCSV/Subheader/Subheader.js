@@ -34,8 +34,8 @@ export default function SubHeader({getRefresh}) {
   const handleFiles = files =>   {
     console.log(files)
     if(files[0].name.split(".")[1] === "csv") {
-      getCSVIds()
       importCSV(files[0])
+      getCSVIds()
    } else {
      console.log("No csv file!")
    }

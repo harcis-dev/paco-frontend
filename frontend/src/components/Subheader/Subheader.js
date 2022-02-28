@@ -94,17 +94,35 @@ export default function SubHeader(props) {
   }, [graphId]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
+ // Get the graph ids and choose the graph types of a specific graph.
+ async function getIds() {
+  await axios
+    .get("/graph/ids")
+    .then((response) => {
+      var ids = [];
+      response.data.forEach((element) => {
+        ids.push(
+          element._id,
+       );
+      });
+      props.getRefresh(ids[ids.length-1])
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
   const handleFormat = (e) => {
     // Set the format to a dynamic variable
     setFormat(e.detail.selectedOption.dataset.id)
     console.log(e.detail.selectedOption);
     props.getFormat(e.detail.selectedOption.dataset.id);
   };
-
+/*
   function timeout(ms) {
     //pass a time in milliseconds to this function
     return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  }*/
 
   let content;
   async function postFile() {
@@ -116,9 +134,10 @@ export default function SubHeader(props) {
       })
       .then((response) => {
         console.log(response);
+        getIds();
       });
-      await timeout(500); //TODO
-      window.location.reload(false);
+      // await timeout(500); //TODO
+     // window.location.reload(false);
   }
 
   async function importEpml() {
@@ -129,9 +148,11 @@ export default function SubHeader(props) {
       })
       .then((response) => {
         console.log(response);
+        getIds();
       });
-      await timeout(500); //TODO
-      window.location.reload(false);
+      // await timeout(500); //TODO
+     // window.location.reload(false);
+      
   }
 
   async function importGraphml() {
@@ -142,9 +163,10 @@ export default function SubHeader(props) {
       })
       .then((response) => {
         console.log(response);
+        getIds();
       });
-      await timeout(500); //TODO
-      window.location.reload(false);
+     // await timeout(500); //TODO
+     // window.location.reload(false);
   }
 
   let fileReader;
