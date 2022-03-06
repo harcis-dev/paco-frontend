@@ -37,7 +37,8 @@ input:active + label {
 }
 
 .btnClass {
-  flex: 60%;
+  min-width: 300px;
+  max-width: 470px;
 }
 
 .sliderClass {
