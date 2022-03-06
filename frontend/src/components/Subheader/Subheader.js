@@ -36,8 +36,14 @@ export default function SubHeader(props) {
   const graphId = props.getGraph;
   const [data, setData] = useState([])
   const [format, setFormat] = useState("DFG")
+  const [changedValue, setChangedValue] = useState(100);
 
   const navigatTo = () => history.push("/upload");
+
+  const changeValue = (e) => {
+    console.log(e.originalTarget.value);
+    setChangedValue(e.originalTarget.value)
+  };
   
 
  React.useEffect(() => {
@@ -322,26 +328,15 @@ export default function SubHeader(props) {
           </div>
 
           <div id="sliders" class="sliderClass" slot="endContent">
-            <table table="tableClass">
-              <tr>
-                <td>
-                  <Text id="textNodes">Nodes</Text>
-                </td>
-                <td>
-                  <Slider class="sliderNode"></Slider>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text id="textEdges">Edges</Text>
-                </td>
-                <td>
-                  <Slider class="sliderEdge"></Slider>
-                </td>
-              </tr>
-            </table>
+            <div id="first">
+              <Text>Nodes</Text>
+              <Slider value={changedValue} class="sliderNode" onChange={changeValue}></Slider>
+            </div>
+            <div id="second">
+              <Text >{changedValue}%</Text>
+            </div>
           </div>
-
+          
           <div class="selectClass" slot="endContent">
             <Select id="selectFormat" value={format} onChange={handleFormat}>
               {data.map((item) => (
