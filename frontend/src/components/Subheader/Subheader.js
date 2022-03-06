@@ -41,8 +41,8 @@ export default function SubHeader(props) {
   const navigatTo = () => history.push("/upload");
 
   const changeValue = (e) => {
-    console.log(e.originalTarget.value);
-    setChangedValue(e.originalTarget.value)
+    console.log(e.target.value);
+    setChangedValue(e.target.value)
   };
   
 

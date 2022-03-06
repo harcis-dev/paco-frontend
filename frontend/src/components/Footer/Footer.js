@@ -10,8 +10,8 @@ export default function Footer(props) {
   const variantId = props.getVariant;
   const graphId = props.getGraph;
   const format = props.getFormat;
- // console.log(variantId)
- // console.log(graphId)
+  console.log(variantId)
+  console.log(graphId)
   const toast = useRef();
 
   const showToast = () => {
