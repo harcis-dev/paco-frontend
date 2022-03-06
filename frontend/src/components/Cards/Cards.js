@@ -239,7 +239,7 @@ export default function Cards(props) {
                     <div>
                       <Text
                         class="graph-name"
-                        style={{ fontSize: "16px", fontWeight: "bold" }}
+                        style={{ fontSize: "16px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
                       >
                         #{listItem.name}
                       </Text>
@@ -289,7 +289,12 @@ export default function Cards(props) {
                   key={listItem.id}
                   data-id={listItem.id}
                 >
-                  #{listItem.name}
+                  <Text
+                        class="graph-name"
+                        style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                      >
+                        #{listItem.name}
+                      </Text>
                 </CustomListItem>
               ))}
             </List>

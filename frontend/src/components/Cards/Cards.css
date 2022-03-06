@@ -27,8 +27,11 @@
 }
 
 .col1 {
-  float: left;
+  display: block;
   width: 100%;
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: ellipsis;
   padding: 10px;
 }
 
@@ -57,6 +60,9 @@
 .graph-name {
   font-weight: bold;
   font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .image {

@@ -126,12 +126,11 @@ export default function Cards(props) {
             >
           {csvIds.map((listItem) => (
                 <CustomListItem key={listItem.id} data-id={listItem.id} >
-                  <div class="col1">
-                      <Icon name="documents"></Icon>
+                  <div class="col1">  
                       <Text
-                        style={{ fontSize: "16px", fontWeight: "bold", marginLeft: '10px'}}
+                        style={{ fontSize: "16px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}
                       >
-                        {listItem.name}
+                        <Icon name="documents"></Icon> {listItem.name}
                       </Text>
                   </div>
                   <div class="col2">

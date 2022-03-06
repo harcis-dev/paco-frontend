@@ -19,11 +19,6 @@
   padding: 10px;
 }
 
-.graph-name {
-  font-weight: bold;
-  font-size: 20px;
-}
-
 .image {
   width: 40px;
   height: 40px;
@@ -42,18 +37,6 @@
   font-size:var(--sapFontSize);
   box-sizing:border-box
  }
- 
- .col1 {
-  float: left;
-  width: 70%;
-  padding: 10px;
-}
-
-.col2 {
-  float: right;
-  padding: 20px;
-  width: 30%;
-}
 
 .csv-name {
   font-weight: bold;
