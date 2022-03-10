@@ -11,6 +11,18 @@
   position: relative;
 }
 
+#fetchData {
+  top: 12px;
+  position: relative;
+}
+
+#csvIm {
+  margin-left: 20px;
+  padding: 8.5px;
+  top: 12px;
+  position: relative;
+}
+
 #leftBtn {
   margin-top: 20px;
 }
@@ -18,11 +30,6 @@
 #rightBtn {
   float: right;
   margin-top: 20px;
-}
-
-#csvIm {
-  margin-left: 20px;
-  padding: 8.5px;
 }
 
 label:hover,
@@ -86,14 +93,54 @@ input:active + label {
   margin-bottom: 16px;
   position: relative;
   display: flex;
-  width: 600px;
 }
 
 .cards2 {
-  width: 300px;
+  width: 350px;
 }
 
 .inputDelete3 {
   height: 60px;
   padding: 11px;
+}
+
+.inputDelete2 {
+  height: 60px;
+  padding: 11px;
+}
+
+.inputDelete4 {
+  height: 60px;
+  padding: 11px;
+}
+
+.inputDelete5 {
+  height: 60px;
+  padding: 11px;
+}
+
+.inputDelete6 {
+  height: 60px;
+  padding: 11px;
+}
+
+#form2 {
+  margin: 32px;
+  font-size: 1rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#form3 {
+  margin: 32px;
+  font-size: 1rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#form4 {
+  margin: 32px;
+  font-size: 1rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }

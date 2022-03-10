@@ -11,7 +11,7 @@ import {
   Input,
   Dialog,
   CardHeader,
-  Card, 
+  Card,
   Icon,
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
@@ -266,11 +266,7 @@ export default function Cards({ getGraph, getVariant }) {
           </div>
         </Card>
         <Card class="medium">
-          <CardHeader
-            slot="header"
-            title-text="Variants"
-            class="card-header"
-          >
+          <CardHeader slot="header" title-text="Variants" class="card-header">
             <Icon name="org-chart" slot="avatar"></Icon>
           </CardHeader>
           <div class="card-content">
