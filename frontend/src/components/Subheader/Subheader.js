@@ -330,7 +330,7 @@ export default function SubHeader(props) {
           <div id="sliders" class="sliderClass" slot="endContent">
             <div id="first">
               <Text>Nodes</Text>
-              <Slider value={changedValue} class="sliderNode" onChange={changeValue}></Slider>
+              <Slider value={changedValue} class="sliderNode" onInput={changeValue}></Slider>
             </div>
             <div id="second">
               <Text >{changedValue}%</Text>
