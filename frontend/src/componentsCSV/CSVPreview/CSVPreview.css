@@ -1,6 +1,6 @@
 .my-custom-scrollbar {
     position: relative;
-    height: 700px;
+    height: 60vh;
     max-height: 700px;
     min-height: 300px;
     overflow: auto;
