@@ -6,6 +6,7 @@
   max-height: 1200px;
   min-width: 595px;
   overflow: hidden;
+  margin-left: 255px;
 }
 
 .react-bpmn-diagram-container {

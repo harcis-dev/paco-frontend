@@ -1,16 +1,3 @@
-.cards {
-  width: 250px;
-  flex: content;
-
-  float: left;
-  display: inline;
-}
-
-.card-header {
-  display: flex;
-  background-color: #e8ebee;
-}
-
 .ui5-list-root {
   width: 100%;
   height: 800px;

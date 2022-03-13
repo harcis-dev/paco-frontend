@@ -1,11 +1,13 @@
 .my-custom-scrollbar {
     position: relative;
     height: 700px;
+    max-height: 700px;
+    min-height: 300px;
     overflow: auto;
     left: 2%;
     top: 40px;
-    width: 80%;
     border: 1px solid black;
+    margin-right: 100px;
 }
 
 .table-wrapper-scroll-y {
