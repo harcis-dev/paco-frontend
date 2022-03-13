@@ -11,6 +11,7 @@ function Home() {
   const [graph, setGraph] = useState();
   const [variant, setVariant] = useState();
   const [refresh, setRefresh] = useState('');
+  const [value, setValue] = useState();
   // console.log(graph)
   // console.log(variant)
 
@@ -20,13 +21,15 @@ function Home() {
         <Header />
         <Subheader getFormat={(format) => setGraphFormat(format)}
                    getRefresh={(refresh) => setRefresh(refresh)} 
-                   getGraph={graph}/>
+                   getGraph={graph}
+                   getVariant={variant}
+                   getValue={(value) => setValue(value)}/>
         <Cards
           getGraph={(graph) => setGraph(graph)}
           getVariant={(variant) => setVariant(variant)}
           getRefresh={refresh}
         />
-        <Canvas getGraphFormat={format} getGraph={graph} getVariant={variant} />
+        <Canvas getGraphFormat={format} getGraph={graph} getVariant={variant} getValue={value}/>
         <Footer getGraph={graph} getVariant={variant} getFormat={format} />
       </div>
     </>

@@ -49,7 +49,7 @@ export default function SubHeader({getRefresh}) {
     const formData = new FormData();
       formData.append('name', files.name.split(".")[0])
       formData.append('file', files)
-      await axios.post("http://localhost:8080/graph/csv/import", formData, {
+      await axios.post("/graph/csv/import", formData, {
       })
       .then(res => {
         console.log(res.statusText)

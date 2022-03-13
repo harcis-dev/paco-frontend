@@ -37,13 +37,26 @@ export default function SubHeader(props) {
   const [data, setData] = useState([])
   const [format, setFormat] = useState("DFG")
   const [changedValue, setChangedValue] = useState(100);
+  const variants = props.getVariant;
+  const [disbaled, setDisabled] = useState(false);
 
   const navigatTo = () => history.push("/upload");
 
   const changeValue = (e) => {
     console.log(e.target.value);
     setChangedValue(e.target.value)
+    props.getValue(e.target.value)
   };
+
+  React.useEffect(() => {
+    if(variants !== undefined) {
+      if (variants.length === 0) {
+        setDisabled(false);
+      } else {
+        setDisabled(true)
+      }
+    }
+  }, [variants])
   
 
  React.useEffect(() => {
@@ -330,7 +343,7 @@ export default function SubHeader(props) {
           <div id="sliders" class="sliderClass" slot="endContent">
             <div id="first">
               <Text>Nodes</Text>
-              <Slider value={changedValue} class="sliderNode" onInput={changeValue}></Slider>
+              <Slider value={changedValue} class="sliderNode" onInput={changeValue} disabled={disbaled}></Slider>
             </div>
             <div id="second">
               <Text >{changedValue}%</Text>

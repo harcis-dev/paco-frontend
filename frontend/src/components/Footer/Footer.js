@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Button, ThemeProvider, Toast, Bar } from "@ui5/webcomponents-react";
 import axios from "axios";
 import "./Footer.css";
+import { saveAs } from "file-saver";
 
 export default function Footer(props) {
 
@@ -25,28 +26,19 @@ export default function Footer(props) {
       console.log("No graph selected!")
       showToast()
     } else {
-      var file;
+      var blob = new Blob([graph], {type : 'application/xml'});
+      //var url = URL.createObjectURL(file);
       if (format === "DFG") {
         console.log(graph)
-        const element = document.createElement("a");
-          file = new File([graph], {
-          type: "text/xml",
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = graphName + "-" + graphId + ".graphml";
-        document.body.appendChild(element); 
-        element.click();
-        console.log(graph);
+        saveAs(
+          blob,
+          graphName + "-" + graphId + ".graphml"
+        );
       } else if (format === "EPC") {
-        const element = document.createElement("a");
-          file = new File([graph], {
-          type: "text/xml",
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = graphName + "-" + graphId + ".epml";
-        document.body.appendChild(element); 
-        element.click();
-        console.log(graph);
+        saveAs(
+          blob,
+          graphName + "-" + graphId + ".epml"
+        );
       } else {
         showToast()
       }     

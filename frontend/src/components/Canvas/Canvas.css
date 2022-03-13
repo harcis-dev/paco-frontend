@@ -1,12 +1,11 @@
 .cytoscape {
   background-color: #f7f7f7;
-  flex: content;
   height: calc(100vh - 234px);
-
-  float: left;
-  display: inline;
-  width: calc(100vw - 265px);
+  /*! float: left; */
+  /*! display: inline; */
+  max-height: 1200px;
   min-width: 595px;
+  overflow: hidden;
 }
 
 .react-bpmn-diagram-container {

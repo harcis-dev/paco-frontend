@@ -18,6 +18,7 @@ function Canvas(props) {
   const graphFormat = props.getGraphFormat;
   const graphId = props.getGraph;
   const variantId = props.getVariant;
+  const value = props.getValue;
 
   // Query Graph from the backend
   const [dfgGraph, setDFGGraph] = React.useState({});
@@ -67,6 +68,34 @@ function Canvas(props) {
     }
   fetchGraph()
   }, [graphId, variantId, graphFormat]);
+
+
+  // Use the fetchGraph function
+  React.useEffect(() => {
+    // Fetch graph from node backend
+    async function fetchGraphNodes() {
+     await axios
+       .post(
+         "/graph/" + graphId,
+         { variants: [], sequence: "", graphTypes: [graphFormat], nodes: value/100},
+         { headers: { "Access-Control-Allow-Origin": "*" } }
+       )
+       .then((response) => {
+         console.log(graphFormat)
+         if (graphFormat === "DFG") {
+           setDFGGraph(response.data.dfg.graph);
+         } else if (graphFormat === "EPC") {
+           setEPCGraph(response.data.epc.graph)
+         } else if (graphFormat === "BPMN") {
+           setBPMNGraph(response.data.bpmn.graph)
+         }
+       })
+       .catch((err) => {
+         console.log(err);
+       });
+   }
+ fetchGraphNodes()
+ }, [graphId, graphFormat, value]);
 
   const CytoscapeComp = () => {
       // Choose the right styling and the right graph  
