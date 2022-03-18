@@ -74,7 +74,7 @@ export default function Header() {
         placementType={PopoverPlacementType.Bottom}
         id="popover"
       >
-        <div class="popover-content">
+        <div className="popover-content">
           <List headerText="Max Mustermann" separators="Inner">
             <StandardListItem onClick={settingsClick} icon="settings">
               Settings
@@ -88,14 +88,14 @@ export default function Header() {
       </Popover>
       <Dialog
         ref={dialogSettingsRef}
-        class="settingsdialog"
+        className="settingsdialog"
         header={
           <Bar endContent={<Icon name="settings" />}>
             <Title>Settings</Title>
           </Bar>
         }
         footer={
-          <div class="settingsFooter">
+          <div className="settingsFooter">
             <Button
               variant="primary"
               design="Emphasized"

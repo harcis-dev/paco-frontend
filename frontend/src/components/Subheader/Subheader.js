@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Button,
   List,
@@ -23,7 +23,6 @@ import "./Subheader.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-
 export default function SubHeader(props) {
   const [MSHOST, setMSHOST] = useState("");
   const [R3Name, setR3Name] = useState("");
@@ -34,8 +33,8 @@ export default function SubHeader(props) {
   const [Current, setCurrent] = useState("");
   const history = useHistory();
   const graphId = props.getGraph;
-  const [data, setData] = useState([])
-  const [format, setFormat] = useState("DFG")
+  const [data, setData] = useState([]);
+  const [format, setFormat] = useState("DFG");
   const [changedValue, setChangedValue] = useState(100);
   const variants = props.getVariant;
   const [disbaled, setDisabled] = useState(false);
@@ -44,100 +43,103 @@ export default function SubHeader(props) {
 
   const changeValue = (e) => {
     console.log(e.target.value);
-    setChangedValue(e.target.value)
-    props.getValue(e.target.value)
+    setChangedValue(e.target.value);
+    props.getValue(e.target.value);
   };
 
-  React.useEffect(() => {
-    if(variants !== undefined) {
+  useEffect(() => {
+    if (variants !== undefined) {
       if (variants.length === 0) {
         setDisabled(false);
       } else {
-        setDisabled(true)
+        setDisabled(true);
       }
     }
-  }, [variants])
-  
+  }, [variants]);
 
- React.useEffect(() => {
-   // Function to choose the right graph type
-  function chooseGraphType(graphMap) {
-    var typeMap = [];
-    var graph = graphMap.find(x => x.id === graphId)
-    console.log(graph);
-    // Loop through the current graph and add the supported formats to an array.
-    for (let i = 0; i < graph.types.length; i++) {
+  useEffect(() => {
+    // Function to choose the right graph type
+    function chooseGraphType(graphMap) {
+      var typeMap = [];
+      var graph = graphMap.find((x) => x.id === graphId);
+      console.log(graph);
+      if (graph !== undefined) {
+        // Loop through the current graph and add the supported formats to an array.
+        for (let i = 0; i < graph.types.length; i++) {
           if (graph.types[i] === "dfg") {
-            typeMap[i] = {id: "DFG", text: "DFG"} 
+            typeMap[i] = { id: "DFG", text: "DFG" };
           } else if (graph.types[i] === "epc") {
-            typeMap[i] = {id: "EPC", text: "EPC"}
+            typeMap[i] = { id: "EPC", text: "EPC" };
           } else if (graph.types[i] === "bpmn") {
-            typeMap[i] = {id: "BPMN", text: "BPMN"}
+            typeMap[i] = { id: "BPMN", text: "BPMN" };
           } else {
-            typeMap[i] = {id: "BPMN Import", text: "BPMN Import"}
+            typeMap[i] = { id: "BPMN Import", text: "BPMN Import" };
           }
+        }
+        setFormat(typeMap[0].id);
+        // Check the current format and if it is unequal to undefined
+        if (
+          graph.types.includes(format.toLowerCase()) &&
+          format !== undefined
+        ) {
+          // If the current graph supports the selected format show it
+          props.getFormat(
+            typeMap[graph.types.indexOf(format.toLowerCase())].id
+          );
+        } else {
+          // If the graph doesn't support the current format show another supported format.
+          props.getFormat(typeMap[0].id);
+        }
+        console.log(typeMap);
+        setData(typeMap);
+      }
     }
-    setFormat(typeMap[0].id)
-    // Check the current format and if it is unequal to undefined
-    if (graph.types.includes(format.toLowerCase()) && format !== undefined) {
-      // If the current graph supports the selected format show it
-      props.getFormat(typeMap[graph.types.indexOf(format.toLowerCase())].id)
-    } else {
-      // If the graph doesn't support the current format show another supported format. 
-      props.getFormat(typeMap[0].id)
+    // Get the graph ids and choose the graph types of a specific graph.
+    async function getGraphIds() {
+      await axios
+        .get("/graph/ids")
+        .then((response) => {
+          var graphMap = [];
+          response.data.forEach((element) => {
+            console.log(element._id);
+            graphMap.push({
+              id: element._id,
+              types: element.graphTypes,
+            });
+          });
+          console.log(graphMap);
+          chooseGraphType(graphMap);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    console.log(typeMap);
-    setData(typeMap);
-  }
+    getGraphIds();
+  }, [graphId]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Get the graph ids and choose the graph types of a specific graph.
-  async function getGraphIds() {
+  async function getIds() {
     await axios
       .get("/graph/ids")
       .then((response) => {
-        var graphMap = [];
+        var ids = [];
         response.data.forEach((element) => {
-          console.log(element._id);
-          graphMap.push({
-            id: element._id,
-            types: element.graphTypes
-          });
+          ids.push(element._id);
         });
-        console.log(graphMap);
-        chooseGraphType(graphMap);
+        props.getRefresh(ids[ids.length - 1]);
       })
       .catch((err) => {
         console.log(err);
       });
   }
-    getGraphIds();
-  }, [graphId]); // eslint-disable-line react-hooks/exhaustive-deps
-
-
- // Get the graph ids and choose the graph types of a specific graph.
- async function getIds() {
-  await axios
-    .get("/graph/ids")
-    .then((response) => {
-      var ids = [];
-      response.data.forEach((element) => {
-        ids.push(
-          element._id,
-       );
-      });
-      props.getRefresh(ids[ids.length-1])
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
   const handleFormat = (e) => {
     // Set the format to a dynamic variable
-    setFormat(e.detail.selectedOption.dataset.id)
+    setFormat(e.detail.selectedOption.dataset.id);
     console.log(e.detail.selectedOption);
     props.getFormat(e.detail.selectedOption.dataset.id);
   };
-/*
+  /*
   function timeout(ms) {
     //pass a time in milliseconds to this function
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -155,54 +157,50 @@ export default function SubHeader(props) {
         console.log(response);
         getIds();
       });
-      // await timeout(500); //TODO
-     // window.location.reload(false);
+    // await timeout(500); //TODO
+    // window.location.reload(false);
   }
 
   async function importEpml() {
     await axios
       .post("/graph/import", {
-       _id: 100,
-       epc: content
+        _id: 100,
+        epc: content,
       })
       .then((response) => {
         console.log(response);
         getIds();
       });
-      // await timeout(500); //TODO
-     // window.location.reload(false);
-      
+    // await timeout(500); //TODO
+    // window.location.reload(false);
   }
 
   async function importGraphml() {
     await axios
       .post("/graph/import", {
-       _id: 42,
-       dfg: content
+        _id: 42,
+        dfg: content,
       })
       .then((response) => {
         console.log(response);
         getIds();
       });
-     // await timeout(500); //TODO
-     // window.location.reload(false);
+    // await timeout(500); //TODO
+    // window.location.reload(false);
   }
 
   let fileReader;
 
   const handleFileChosen = (file) => {
     fileReader = new FileReader();
-    var dataType = file.name.split(".")[1]
+    var dataType = file.name.split(".")[1];
     fileReader.onloadend = () => {
       content = fileReader.result;
       console.log(content);
-      if (dataType === "json")
-       postFile();
-      else if (dataType === "epml")
-       importEpml();
-      else if (dataType === "graphml")
-        importGraphml();
-    };;
+      if (dataType === "json") postFile();
+      else if (dataType === "epml") importEpml();
+      else if (dataType === "graphml") importGraphml();
+    };
     fileReader.readAsText(file);
   };
 
@@ -311,13 +309,11 @@ export default function SubHeader(props) {
   var password = "";
   var user = "";
 
- 
-
   return (
     <>
-      <div class="flex-container">
+      <div className="flex-container">
         <Bar design="Subheader" id="subheader">
-          <div class="btnClass" slot="startContent">
+          <div className="btnClass" slot="startContent">
             <Button
               onClick={handleFetchModelClick}
               slot="startContent"
@@ -340,17 +336,22 @@ export default function SubHeader(props) {
             </Button>
           </div>
 
-          <div id="sliders" class="sliderClass" slot="endContent">
+          <div id="sliders" className="sliderClass" slot="endContent">
             <div id="first">
               <Text>Nodes</Text>
-              <Slider value={changedValue} class="sliderNode" onInput={changeValue} disabled={disbaled}></Slider>
+              <Slider
+                value={changedValue}
+                className="sliderNode"
+                onInput={changeValue}
+                disabled={disbaled}
+              ></Slider>
             </div>
             <div id="second">
-              <Text >{changedValue}%</Text>
+              <Text>{changedValue}%</Text>
             </div>
           </div>
-          
-          <div class="selectClass" slot="endContent">
+
+          <div className="selectClass" slot="endContent">
             <Select id="selectFormat" value={format} onChange={handleFormat}>
               {data.map((item) => (
                 <option key={item.id} data-id={item.id}>
@@ -362,11 +363,9 @@ export default function SubHeader(props) {
         </Bar>
       </div>
 
-
-
       <Dialog
         ref={dialogSettingsRef}
-        class="importdialog"
+        className="importdialog"
         header={
           <Bar endContent={<Icon name="settings" />}>
             <Title>Fetch new model from SAP</Title>
@@ -375,36 +374,36 @@ export default function SubHeader(props) {
       >
         <div id="fetchDialog">
           <div className="cards2">
-            <Card class="medium2">
+            <Card className="medium2">
               <CardHeader
                 slot="header"
                 title-text="Logins"
-                class="card-header2"
+                className="card-header2"
               >
-                <Icon  name="sap-icon://account" slot="avatar"></Icon>
+                <Icon name="sap-icon://account" slot="avatar"></Icon>
               </CardHeader>
-              <div class="card-content">
+              <div className="card-content">
                 <List
                   separators="None"
-                  class="card-content-child"
+                  className="card-content-child"
                   style={{ height: "320px" }}
                   onItemClick={handleGraphItem}
                 >
                   {ListIds.map((listItem) => (
                     <CustomListItem key={listItem} data-id={listItem}>
-                      <div class="col1">
+                      <div className="col1">
                         <div>
                           <Text
-                            class="graph-name"
+                            className="graph-name"
                             style={{ fontSize: "16px", fontWeight: "bold" }}
                           >
                             {listItem.split(" ")[0]}
                           </Text>
                         </div>
                       </div>
-                      <div class="col3">
+                      <div className="col3">
                         <Button
-                          class="btn-del"
+                          className="btn-del"
                           icon="sap-icon://delete"
                           onClick={() => ondeleteButtonClick(listItem)}
                         ></Button>
@@ -413,7 +412,7 @@ export default function SubHeader(props) {
                   ))}
                 </List>
               </div>
-            </Card >
+            </Card>
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           <div id="form">
@@ -454,26 +453,25 @@ export default function SubHeader(props) {
                     onChange={(e) => setClient(e.target.value)}
                   />
                 </FormItem>
-                <FormItem >
-                  <Button id="leftBtn" onClick={onClickAdd}>Add</Button>
-                </FormItem>        
+                <FormItem>
+                  <Button id="leftBtn" onClick={onClickAdd}>
+                    Add
+                  </Button>
+                </FormItem>
               </FormGroup>
             </Form>
           </div>
         </div>
-        <Button id="rightBtn" onClick={handleCloseClick}>Close</Button>
+        <Button id="rightBtn" onClick={handleCloseClick}>
+          Close
+        </Button>
       </Dialog>
 
-
-
-
-
-      
       <Dialog
         id="delete-dialog2"
         ref={deletedialogRef}
         footer={
-          <div class="inputDelete2">
+          <div className="inputDelete2">
             <Button
               variant="primary"
               design="Emphasized"
@@ -495,7 +493,7 @@ export default function SubHeader(props) {
         id="delete-dialog3"
         ref={loginDialogRef}
         footer={
-          <div class="inputDelete3">
+          <div className="inputDelete3">
             <Button
               variant="primary"
               design="Emphasized"

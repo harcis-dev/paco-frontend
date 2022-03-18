@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 //import Arrow from "./arrow.svg";
 import "./Cards.css";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import {
   Input,
   Dialog,
   CardHeader,
-  Card, 
+  Card,
   Icon,
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
@@ -20,7 +20,7 @@ import "@ui5/webcomponents-icons/dist/AllIcons.js";
 export default function Cards(props) {
   const [graphIds, setGraphIds] = useState([]);
   const [variants, setVariants] = useState([]);
-  const [graph, setGraph] = useState();
+  const [graph, setGraph] = useState("");
   const [itemId, setItemId] = useState();
   const [itemChangeId, setItemChangeId] = useState();
   const [name, setName] = useState("");
@@ -31,7 +31,7 @@ export default function Cards(props) {
   const handleGraphItem = (event) => {
     console.log(event.detail.item.dataset.id);
     setGraph(event.detail.item.dataset.id);
-    props.getGraph(event.detail.item.dataset.id);
+    props.getGraph(event.detail.item.dataset.id || []);
     props.getVariant(undefined);
   };
 
@@ -63,58 +63,57 @@ export default function Cards(props) {
       });
   }
 
-  
-
   // Use effect for the graph id fetching
-  React.useEffect(() => {
+  useEffect(() => {
     // Fetch the different graph ids from backend
-  async function getGraphIds() {
-    await axios
-      .get("/graph/ids")
-      .then((response) => {
-        var graphMap = [];
-        response.data.forEach((element) => {
-          console.log(element._id);
-          graphMap.push({
-            id: element._id,
-            name: element.name,
-            variants:
-              element.variantsCount +
-              (element.variantsCount === 1 ? " Variant" : " Variants"),
-          });
-        });
-        console.log(graphMap);
-        setGraphIds(graphMap);
-        
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-    getGraphIds();
-  }, [name, refresh]);
-
-  // Use effect for the variants fetching
-  React.useEffect(() => {
-    async function getVariants() {
+    async function getGraphIds() {
       await axios
-        .post(
-          "/graph/" + graph,
-          { variants: [], sequence: "" },
-          { headers: { "Access-Control-Allow-Origin": "*" } }
-        )
+        .get("/graph/ids")
         .then((response) => {
-          var result = [];
-          var variants = response.data.dfg.graph[0].data.variants;     
-          let keys = Object.keys(variants);
-          keys.forEach((element) => {
-            result.push({ id: element, name: element });
+          var graphMap = [];
+          response.data.forEach((element) => {
+            console.log(element._id);
+            graphMap.push({
+              id: element._id,
+              name: element.name,
+              variants:
+                element.variantsCount +
+                (element.variantsCount === 1 ? " Variant" : " Variants"),
+            });
           });
-          setVariants(result);
+          console.log(graphMap);
+          setGraphIds(graphMap);
         })
         .catch((err) => {
           console.log(err);
         });
+    }
+    getGraphIds();
+  }, [name, refresh]);
+
+  // Use effect for the variants fetching
+  useEffect(() => {
+    async function getVariants() {
+      if (graph.length !== 0) {
+        await axios
+          .post(
+            "/graph/" + graph,
+            { variants: [], sequence: "" },
+            { headers: { "Access-Control-Allow-Origin": "*" } }
+          )
+          .then((response) => {
+            var result = [];
+            var variants = response.data.dfg.graph[0].data.variants;
+            let keys = Object.keys(variants);
+            keys.forEach((element) => {
+              result.push({ id: element, name: element });
+            });
+            setVariants(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
     getVariants();
   }, [graph]);
@@ -160,20 +159,20 @@ export default function Cards(props) {
   return (
     <>
       <div className="cards">
-        <Card class="medium">
+        <Card className="medium">
           <CardHeader
             slot="header"
             title-text="Process Models"
-            class="card-header"
+            className="card-header"
           >
             <Icon name="overview-chart" slot="avatar"></Icon>
           </CardHeader>
-          <div class="card-content">
+          <div className="card-content">
             <Dialog
               id="edit-dialog"
               ref={editdialogRef}
               footer={
-                <div class="inputEdit">
+                <div className="inputEdit">
                   <Button
                     variant="primary"
                     design="Emphasized"
@@ -196,7 +195,7 @@ export default function Cards(props) {
                 <label>New Name:</label>
                 &nbsp; &nbsp; &nbsp;
                 <Input
-                  class="inputField"
+                  className="inputField"
                   placeholder="New name..."
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -208,7 +207,7 @@ export default function Cards(props) {
               id="delete-dialog"
               ref={deletedialogRef}
               footer={
-                <div class="inputDelete">
+                <div className="inputDelete">
                   <Button
                     variant="primary"
                     design="Emphasized"
@@ -229,17 +228,23 @@ export default function Cards(props) {
 
             <List
               separators="None"
-              class="card-content-child"
+              className="card-content-child"
               style={{ height: "320px" }}
               onItemClick={handleGraphItem}
             >
               {graphIds.map((listItem) => (
                 <CustomListItem key={listItem.id} data-id={listItem.id}>
-                  <div class="col1">
+                  <div className="col1">
                     <div>
                       <Text
-                        class="graph-name"
-                        style={{ fontSize: "16px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                        className="graph-name"
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
                       >
                         #{listItem.name}
                       </Text>
@@ -248,16 +253,16 @@ export default function Cards(props) {
                       <Text>{listItem.variants}</Text>
                     </div>
                   </div>
-                  <div class="col2">
+                  <div className="col2">
                     <Button
-                      class="btn-edit"
+                      className="btn-edit"
                       icon="sap-icon://edit"
                       onClick={() => oneditButtonClick(listItem.id)}
                     ></Button>
                   </div>
-                  <div class="col3">
+                  <div className="col3">
                     <Button
-                      class="btn-del"
+                      className="btn-del"
                       icon="sap-icon://delete"
                       onClick={() => ondeleteButtonClick(listItem.id)}
                     ></Button>
@@ -267,19 +272,19 @@ export default function Cards(props) {
             </List>
           </div>
         </Card>
-        <Card class="medium">
+        <Card className="medium">
           <CardHeader
             slot="header"
             title-text="Variants"
-            class="card-header"
+            className="card-header"
           >
             <Icon name="org-chart" slot="avatar"></Icon>
           </CardHeader>
-          <div class="card-content">
+          <div className="card-content">
             <List
               separators="None"
               style={{ height: "300px" }}
-              class="card-content-child"
+              className="card-content-child"
               mode="MultiSelect"
               onSelectionChange={handleVariantItem}
             >
@@ -290,11 +295,15 @@ export default function Cards(props) {
                   data-id={listItem.id}
                 >
                   <Text
-                        class="graph-name"
-                        style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
-                      >
-                        #{listItem.name}
-                      </Text>
+                    className="graph-name"
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    #{listItem.name}
+                  </Text>
                 </CustomListItem>
               ))}
             </List>

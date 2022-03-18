@@ -1,31 +1,26 @@
-import React from "react";
-import CytoscapeComponent from "react-cytoscapejs";
+import React, { useState, useEffect } from "react";
 import dagre from "cytoscape-dagre";
 import cytoscape from "cytoscape";
-import { epc } from '../../formats/epc.js';
-import { dfg } from "../../formats/dfg.js";
-import { bpmn } from "../../formats/bpmn.js";
 import { diagramXML } from "../../diagram.js";
 import axios from "axios";
 import ReactBpmn from "react-bpmn";
 import "./Canvas.css";
+import CytoscapeComp from "./CytoscapeComp";
 
 cytoscape.use(dagre);
 
 function Canvas(props) {
-  const layout = { name: "dagre" };
-
   const graphFormat = props.getGraphFormat;
   const graphId = props.getGraph;
   const variantId = props.getVariant;
   const value = props.getValue;
 
   // Query Graph from the backend
-  const [dfgGraph, setDFGGraph] = React.useState({});
-  const [epcGraph, setEPCGraph] = React.useState({});
-  const [bpmnGraph, setBPMNGraph] = React.useState({});
-  const [style, setStyle] = React.useState("");
-  const [graph, setGraph] = React.useState("");
+  const [dfgGraph, setDFGGraph] = useState({});
+  const [epcGraph, setEPCGraph] = useState({});
+  const [bpmnGraph, setBPMNGraph] = useState({});
+  const [style, setStyle] = useState("");
+  const [graph, setGraph] = useState("");
 
   // Status messages for the BPMN graph in the browser console
   function onShown() {
@@ -40,106 +35,101 @@ function Canvas(props) {
     console.log("failed to show diagram");
   }
 
-
   // Use the fetchGraph function
-  React.useEffect(() => {
-     // Fetch graph from node backend
-     console.log(variantId + " var")
-     async function fetchGraph() {
-      await axios
-        .post(
-          "/graph/" + graphId,
-          { variants: variantId === undefined ? [] : variantId, sequence: "", graphTypes: [graphFormat]},
-          { headers: { "Access-Control-Allow-Origin": "*" } }
-        )
-        .then((response) => {
-          console.log(graphFormat)
-          if (graphFormat === "DFG") {
-            setDFGGraph(response.data.dfg.graph);
-          } else if (graphFormat === "EPC") {
-            setEPCGraph(response.data.epc.graph)
-          } else if (graphFormat === "BPMN") {
-            setBPMNGraph(response.data.bpmn.graph)
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  useEffect(() => {
+    // Fetch graph from node backend
+    console.log(variantId + " var");
+    async function fetchGraph() {
+      if (graphId.length !== 0) {
+        await axios
+          .post(
+            "/graph/" + graphId,
+            {
+              variants: variantId === undefined ? [] : variantId,
+              sequence: "",
+              graphTypes: [graphFormat],
+            },
+            { headers: { "Access-Control-Allow-Origin": "*" } }
+          )
+          .then((response) => {
+            console.log(graphFormat);
+            if (graphFormat === "DFG") {
+              setDFGGraph(response.data.dfg.graph);
+            } else if (graphFormat === "EPC") {
+              setEPCGraph(response.data.epc.graph);
+            } else if (graphFormat === "BPMN") {
+              setBPMNGraph(response.data.bpmn.graph);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
-  fetchGraph()
+    fetchGraph();
   }, [graphId, variantId, graphFormat]);
 
-
   // Use the fetchGraph function
-  React.useEffect(() => {
+  useEffect(() => {
     // Fetch graph from node backend
     async function fetchGraphNodes() {
-     await axios
-       .post(
-         "/graph/" + graphId,
-         { variants: [], sequence: "", graphTypes: [graphFormat], nodes: value/100},
-         { headers: { "Access-Control-Allow-Origin": "*" } }
-       )
-       .then((response) => {
-         console.log(graphFormat)
-         if (graphFormat === "DFG") {
-           setDFGGraph(response.data.dfg.graph);
-         } else if (graphFormat === "EPC") {
-           setEPCGraph(response.data.epc.graph)
-         } else if (graphFormat === "BPMN") {
-           setBPMNGraph(response.data.bpmn.graph)
-         }
-       })
-       .catch((err) => {
-         console.log(err);
-       });
-   }
- fetchGraphNodes()
- }, [graphId, graphFormat, value]);
-
-  const CytoscapeComp = () => {
-      // Choose the right styling and the right graph  
-      if (graphFormat === "DFG") {
-      setStyle(dfg);
-      setGraph(dfgGraph);
-    }  else if (graphFormat === "EPC") {
-      setStyle(epc);
-      setGraph(epcGraph);
-    }  else if (graphFormat === "BPMN") {
-      setStyle(bpmn);
-      setGraph(bpmnGraph)
-    }
-
-    return  <CytoscapeComponent
-    className="cytoscape"
-    wheelSensitivity={0.1}
-    maxZoom={2}
-    userZoomingEnabled={true}
-    cy={
-      (cy) => {
-      if( graphFormat === "BPMN") {
-        cy.layout({name: 'dagre', rankDir: 'LR'}).run() // Apply the dagre layout
-      } else {
-        cy.layout(layout).run() // Apply the dagre layout
+      if (graphId.length !== 0) {
+        await axios
+          .post(
+            "/graph/" + graphId,
+            {
+              variants: [],
+              sequence: "",
+              graphTypes: [graphFormat],
+              nodes: value / 100,
+            },
+            { headers: { "Access-Control-Allow-Origin": "*" } }
+          )
+          .then((response) => {
+            console.log(graphFormat);
+            if (graphFormat === "DFG") {
+              setDFGGraph(response.data.dfg.graph);
+            } else if (graphFormat === "EPC") {
+              setEPCGraph(response.data.epc.graph);
+            } else if (graphFormat === "BPMN") {
+              setBPMNGraph(response.data.bpmn.graph);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
-      cy.fit()
-     }
     }
-    elements={Array.from(graph)}
-    stylesheet={style} // The different graph types.
-  />
-  }
+    fetchGraphNodes();
+  }, [graphId, graphFormat, value]);
+
+  const styleHandler = (newStyle) => {
+    setStyle(newStyle);
+  };
+
+  const graphHandler = (newGraph) => {
+    setGraph(newGraph);
+  };
 
   return graphFormat === "BPMN Import" ? (
     <ReactBpmn
-      class="djs-container"
+      className="djs-container"
       diagramXML={diagramXML}
       onShown={onShown}
       onLoading={onLoading}
       onError={onError}
     />
   ) : (
-   <CytoscapeComp></CytoscapeComp>
+    <CytoscapeComp
+      dfgGraph={dfgGraph}
+      epcGraph={epcGraph}
+      bpmnGraph={bpmnGraph}
+      graphFormat={graphFormat}
+      graph={graph}
+      style={style}
+      onStyle={styleHandler}
+      onGraph={graphHandler}
+    ></CytoscapeComp>
   );
 }
 

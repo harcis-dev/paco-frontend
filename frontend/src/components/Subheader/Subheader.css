@@ -45,7 +45,7 @@ input:active + label {
   width: 350px;
   padding: 40px;
   padding-bottom: 23px;
-  overflow: hidden; 
+  overflow: hidden;
   margin-right: 20px;
 }
 
@@ -56,7 +56,7 @@ input:active + label {
 
 #second {
   width: 40px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .selectClass {

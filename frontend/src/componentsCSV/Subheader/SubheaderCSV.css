@@ -12,7 +12,6 @@ input:active + label {
   background: rgb(235, 245, 254);
 }
 
-
 .btn {
   margin-left: 20px;
   border: 1px solid rgb(12, 84, 164);
@@ -29,5 +28,3 @@ input:active + label {
   padding: 8.5px;
   position: relative;
 }
-
- 

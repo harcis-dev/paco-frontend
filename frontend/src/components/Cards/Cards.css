@@ -1,13 +1,12 @@
 .cards {
-	flex-direction: column;
-	float: left;
-	display: flex;
-	height: 70vh;
-	width: 250px;
-	overflow: auto;
+  flex-direction: column;
+  float: left;
+  display: flex;
+  height: 70vh;
+  width: 250px;
+  overflow: auto;
   padding: 5px;
 }
-
 
 #comboBox {
   width: 10vh;

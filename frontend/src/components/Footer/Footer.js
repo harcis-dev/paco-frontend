@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, ThemeProvider, Toast, Bar } from "@ui5/webcomponents-react";
 import axios from "axios";
 import "./Footer.css";
@@ -6,8 +6,8 @@ import { saveAs } from "file-saver";
 
 export default function Footer(props) {
 
-  const [graph, setGraph] = useState();
-  const [graphName, setGraphName] = useState();
+  const [graph, setGraph] = useState([]);
+  const [graphName, setGraphName] = useState("");
   const variantId = props.getVariant;
   const graphId = props.getGraph;
   const format = props.getFormat;
@@ -46,8 +46,9 @@ export default function Footer(props) {
   }
 
   // Use effect for the graph id fetching
-  React.useEffect(() => {
+  useEffect(() => {
     async function getGraphName() {
+      if (graphId.length !== 0) {
       await axios
         .post(
           "/graph/" + graphId,
@@ -60,13 +61,15 @@ export default function Footer(props) {
         .catch((err) => {
           console.log(err);
         });
+      }
     }
     getGraphName();
   }, [graphId]);
 
    // Use effect for the graph id fetching
-   React.useEffect(() => {
+   useEffect(() => {
     async function getVariantsDFG() {
+      if (graphId.length !== 0) {
       await axios
         .post(
           "/graph/download/dfg/" + graphId,
@@ -80,14 +83,16 @@ export default function Footer(props) {
         .catch((err) => {
           console.log(err);
         });
+      }
     }
     getVariantsDFG();
   }, [graphId, variantId]);
 
 
    // Use effect for the graph id fetching
-   React.useEffect(() => {
+   useEffect(() => {
     async function getVariantsEPC() {
+      if (graphId.length !== 0) {
       await axios
         .post(
           "/graph/download/epc/" + graphId,
@@ -101,6 +106,7 @@ export default function Footer(props) {
         .catch((err) => {
           console.log(err);
         });
+      }
     }
     getVariantsEPC();
   }, [graphId, variantId]);
@@ -115,7 +121,7 @@ export default function Footer(props) {
       >
         Export model
       </Button>
-      <ThemeProvider class="toast">
+      <ThemeProvider className="toast">
         <Toast ref={toast}>Export not possible!</Toast>
       </ThemeProvider>
     </Bar>
