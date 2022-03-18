@@ -77,7 +77,7 @@ export default function Footer(props) {
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
-          console.log(response.data + " test")
+          //console.log(response.data + " test")
           setGraph(response.data)
         })
         .catch((err) => {
@@ -100,7 +100,7 @@ export default function Footer(props) {
           { headers: { "Access-Control-Allow-Origin": "*" } }
         )
         .then((response) => {
-          console.log(response.data + " test")
+         // console.log(response.data + " test")
           setGraph(response.data)
         })
         .catch((err) => {

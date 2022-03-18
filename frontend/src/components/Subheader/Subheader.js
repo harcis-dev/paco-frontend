@@ -63,7 +63,6 @@ export default function SubHeader(props) {
       var typeMap = [];
       var graph = graphMap.find((x) => x.id === graphId);
       console.log(graph);
-      if (graph !== undefined) {
         // Loop through the current graph and add the supported formats to an array.
         for (let i = 0; i < graph.types.length; i++) {
           if (graph.types[i] === "dfg") {
@@ -76,23 +75,26 @@ export default function SubHeader(props) {
             typeMap[i] = { id: "BPMN Import", text: "BPMN Import" };
           }
         }
-        setFormat(typeMap[0].id);
+        
         // Check the current format and if it is unequal to undefined
         if (
           graph.types.includes(format.toLowerCase()) &&
           format !== undefined
         ) {
           // If the current graph supports the selected format show it
+          setFormat((prevFormat) => {
+            return prevFormat;
+          });
           props.getFormat(
             typeMap[graph.types.indexOf(format.toLowerCase())].id
           );
         } else {
           // If the graph doesn't support the current format show another supported format.
+          setFormat(typeMap[0].id);
           props.getFormat(typeMap[0].id);
         }
         console.log(typeMap);
         setData(typeMap);
-      }
     }
     // Get the graph ids and choose the graph types of a specific graph.
     async function getGraphIds() {

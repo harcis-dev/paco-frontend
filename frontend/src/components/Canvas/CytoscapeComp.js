@@ -29,6 +29,7 @@ const CytoscapeComp = (props) => {
       cy={(cy) => {
         if (props.graphFormat === "BPMN") {
           cy.layout({ name: "dagre", rankDir: "LR" }).run(); // Apply the dagre layout
+          cy.$('#Process').data('label', props.graphName);
         } else {
           cy.layout(layout).run(); // Apply the dagre layout
         }

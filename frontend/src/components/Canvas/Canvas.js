@@ -21,6 +21,7 @@ function Canvas(props) {
   const [bpmnGraph, setBPMNGraph] = useState({});
   const [style, setStyle] = useState("");
   const [graph, setGraph] = useState("");
+  const [graphName, setGraphName] = useState("");
 
   // Status messages for the BPMN graph in the browser console
   function onShown() {
@@ -59,6 +60,7 @@ function Canvas(props) {
               setEPCGraph(response.data.epc.graph);
             } else if (graphFormat === "BPMN") {
               setBPMNGraph(response.data.bpmn.graph);
+              setGraphName(response.data.name);
             }
           })
           .catch((err) => {
@@ -93,6 +95,7 @@ function Canvas(props) {
               setEPCGraph(response.data.epc.graph);
             } else if (graphFormat === "BPMN") {
               setBPMNGraph(response.data.bpmn.graph);
+              setGraphName(response.data.name);
             }
           })
           .catch((err) => {
@@ -129,6 +132,7 @@ function Canvas(props) {
       style={style}
       onStyle={styleHandler}
       onGraph={graphHandler}
+      graphName={graphName}
     ></CytoscapeComp>
   );
 }
