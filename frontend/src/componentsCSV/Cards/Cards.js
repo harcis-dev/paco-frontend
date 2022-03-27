@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-//import Arrow from "./arrow.svg";
 import "./CardsCSV.css";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 import {
@@ -8,8 +7,8 @@ import {
   Button,
   Text,
   Dialog,
+  Icon
 } from "@ui5/webcomponents-react";
-import { Icon } from "@ui5/webcomponents-react";
 import axios from "axios";
 
 export default function Cards(props) {
