@@ -102,13 +102,15 @@ export default function Cards(props) {
             { headers: { "Access-Control-Allow-Origin": "*" } }
           )
           .then((response) => {
-            var result = [];
-            var variants = response.data.dfg.graph[0].data.variants;
-            let keys = Object.keys(variants);
-            keys.forEach((element) => {
-              result.push({ id: element, name: element });
-            });
-            setVariants(result);
+            if (response.data.dfg.graph[0].data.variants !== undefined) {
+              var result = [];
+              var variants = response.data.dfg.graph[0].data.variants;
+              let keys = Object.keys(variants);
+              keys.forEach((element) => {
+                result.push({ id: element, name: element });
+              });
+              setVariants(result);
+            }
           })
           .catch((err) => {
             console.log(err);

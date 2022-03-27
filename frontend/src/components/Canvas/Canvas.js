@@ -5,11 +5,17 @@ import { diagramXML } from "../../diagram.js";
 import axios from "axios";
 import ReactBpmn from "react-bpmn";
 import "./Canvas.css";
-import CytoscapeComp from "./CytoscapeComp";
+//import CytoscapeComp from "./CytoscapeComp";
+import { epc } from "../../formats/epc.js";
+import { dfg } from "../../formats/dfg.js";
+import CytoscapeComponent from "react-cytoscapejs";
+import { bpmn } from "../../formats/bpmn.js";
 
 cytoscape.use(dagre);
 
 function Canvas(props) {
+  const layout = { name: "dagre" };
+
   const graphFormat = props.getGraphFormat;
   const graphId = props.getGraph;
   const variantId = props.getVariant;
@@ -54,13 +60,15 @@ function Canvas(props) {
           )
           .then((response) => {
             console.log(graphFormat);
+            console.log(response)
             if (graphFormat === "DFG") {
-              setDFGGraph(response.data.dfg.graph);
+                setDFGGraph(response.data.dfg.graph);
             } else if (graphFormat === "EPC") {
-              setEPCGraph(response.data.epc.graph);
+                setEPCGraph(response.data.epc.graph);
+              
             } else if (graphFormat === "BPMN") {
-              setBPMNGraph(response.data.bpmn.graph);
-              setGraphName(response.data.name);
+                setBPMNGraph(response.data.bpmn.graph);
+                setGraphName(response.data.name);
             }
           })
           .catch((err) => {
@@ -90,12 +98,12 @@ function Canvas(props) {
           .then((response) => {
             console.log(graphFormat);
             if (graphFormat === "DFG") {
-              setDFGGraph(response.data.dfg.graph);
+                setDFGGraph(response.data.dfg.graph);
             } else if (graphFormat === "EPC") {
-              setEPCGraph(response.data.epc.graph);
+                setEPCGraph(response.data.epc.graph);
             } else if (graphFormat === "BPMN") {
-              setBPMNGraph(response.data.bpmn.graph);
-              setGraphName(response.data.name);
+                setBPMNGraph(response.data.bpmn.graph);
+                setGraphName(response.data.name);
             }
           })
           .catch((err) => {
@@ -105,14 +113,41 @@ function Canvas(props) {
     }
     fetchGraphNodes();
   }, [graphId, graphFormat, value]);
+  
 
-  const styleHandler = (newStyle) => {
-    setStyle(newStyle);
-  };
+  const CytoscapeComp = () => {
+    // Choose the right styling and the right graph  
+    if (graphFormat === "DFG") {
+    setStyle(dfg);
+    setGraph(dfgGraph);
+  }  else if (graphFormat === "EPC") {
+    setStyle(epc);
+    setGraph(epcGraph);
+  }  else if (graphFormat === "BPMN") {
+    setStyle(bpmn);
+    setGraph(bpmnGraph)
+  }
 
-  const graphHandler = (newGraph) => {
-    setGraph(newGraph);
-  };
+  return  <CytoscapeComponent
+  className="cytoscape"
+  wheelSensitivity={0.1}
+  maxZoom={2}
+  userZoomingEnabled={true}
+  cy={
+    (cy) => {
+    if( graphFormat === "BPMN") {
+      cy.layout({name: 'dagre', rankDir: 'LR'}).run() // Apply the dagre layout
+      cy.$("#Process").data("label", graphName);
+    } else {
+      cy.layout(layout).run() // Apply the dagre layout
+    }
+    cy.fit()
+   }
+  }
+  elements={Array.from(graph)}
+  stylesheet={style} // The different graph types.
+/>
+}
 
   return graphFormat === "BPMN Import" ? (
     <ReactBpmn
@@ -123,17 +158,7 @@ function Canvas(props) {
       onError={onError}
     />
   ) : (
-    <CytoscapeComp
-      dfgGraph={dfgGraph}
-      epcGraph={epcGraph}
-      bpmnGraph={bpmnGraph}
-      graphFormat={graphFormat}
-      graph={graph}
-      style={style}
-      onStyle={styleHandler}
-      onGraph={graphHandler}
-      graphName={graphName}
-    ></CytoscapeComp>
+    <CytoscapeComp></CytoscapeComp>
   );
 }
 

@@ -60,6 +60,7 @@ export default function SubHeader(props) {
   useEffect(() => {
     // Function to choose the right graph type
     function chooseGraphType(graphMap) {
+      if (graphId !== "") {
       var typeMap = [];
       var graph = graphMap.find((x) => x.id === graphId);
       console.log(graph);
@@ -95,12 +96,14 @@ export default function SubHeader(props) {
         }
         console.log(typeMap);
         setData(typeMap);
+      }
     }
     // Get the graph ids and choose the graph types of a specific graph.
     async function getGraphIds() {
       await axios
         .get("/graph/ids")
         .then((response) => {
+          console.log(response)
           var graphMap = [];
           response.data.forEach((element) => {
             console.log(element._id);
@@ -180,8 +183,22 @@ export default function SubHeader(props) {
   async function importGraphml() {
     await axios
       .post("/graph/import", {
-        _id: 42,
+        _id: 40,
         dfg: content,
+      })
+      .then((response) => {
+        console.log(response);
+        getIds();
+      });
+    // await timeout(500); //TODO
+    // window.location.reload(false);
+  }
+
+  async function importBPMN() {
+    await axios
+      .post("/graph/import", {
+        _id: 10,
+        bpmn: content,
       })
       .then((response) => {
         console.log(response);
@@ -199,9 +216,15 @@ export default function SubHeader(props) {
     fileReader.onloadend = () => {
       content = fileReader.result;
       console.log(content);
-      if (dataType === "json") postFile();
-      else if (dataType === "epml") importEpml();
-      else if (dataType === "graphml") importGraphml();
+      if (dataType === "json") { 
+        postFile();
+      } else if (dataType === "epml") {
+        importEpml();
+      } else if (dataType === "graphml") {
+        importGraphml();
+      } else if (dataType === "bpmn") {
+        importBPMN();
+      } 
     };
     fileReader.readAsText(file);
   };
